@@ -1,14 +1,22 @@
 /*
- * Copyright 2012 the "Cubebox Team"
- * See http://cubebox.bplaced.net/about.php for a full list.
+ * Copyright (c) 2012, The Cubebox Team <http://cubebox.bplaced.net/>
  * 
- * This file is licensed under the GNU General Public License v3.
- * You find the license here:
- * http://www.gnu.org/licenses/gpl-3.0.txt
  * 
- * This software is distributed AS-IS and WITHOUT ANY WARRANTY.
- * See the license file for details
+ * This file is part of cubebox.
  * 
+ * cubebox is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * cubebox is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with cubebox.  If not, see <http://www.gnu.org/licenses/>.
+ *
 */
 
 
