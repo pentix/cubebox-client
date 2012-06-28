@@ -34,8 +34,8 @@ void read_configuration(void){
 	
 	__config.window_width  = atoi(search_for_key("window-width", 0));
 	__config.window_height = atoi(search_for_key("window-height", 0));
-	__config.window_depth  = (unsigned char)atoi(search_for_key("window-depth", 0));
-	
+	__config.color_depth  = (unsigned char)atoi(search_for_key("color-depth", 0));
+		
 	search_destroy();
 	fclose(config_file);
 }
@@ -48,7 +48,7 @@ void cubebox_init(void){
 	#ifdef __DEBUG__
 		printf("Read window-width \t\t = \t\t %dpx\n", __config.window_width);
 		printf("Read window-height \t\t = \t\t %dpx\n", __config.window_height);
-		printf("Read window-depth \t\t = \t\t %d bit\n", __config.window_depth);
+		printf("Read color-depth \t\t = \t\t %d bit\n", __config.color_depth);
 	#endif
 	
 	printf("Read configuration successfully!\n");

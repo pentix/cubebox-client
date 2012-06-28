@@ -24,14 +24,16 @@
 	#define __INIT_H__
 	#include "../shared/libs/parser/parser.c"
 	
+	
+	// Config stuff
 	struct config{
 		unsigned int window_width;
 		unsigned int window_height;
-		unsigned char window_depth;
-		
-	
-		
-	};
+		unsigned char color_depth;
+			
+	};	
 	
 	struct config __config;
+	
+		
 #endif
