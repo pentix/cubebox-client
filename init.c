@@ -54,6 +54,8 @@ void *init_sdl_environment(){
 		exit(1);
 	}
 	
+	// Set window caption
+	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
 	// Set @Exit function to SQL_Quit
 	atexit(SDL_Quit);
