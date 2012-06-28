@@ -45,6 +45,12 @@ void read_configuration(void){
 void cubebox_init(void){
 	read_configuration();
 	
+	#ifdef __DEBUG__
+		printf("Read window-width \t\t = \t\t %dpx\n", __config.window_width);
+		printf("Read window-height \t\t = \t\t %dpx\n", __config.window_height);
+		printf("Read window-depth \t\t = \t\t %d bit\n", __config.window_depth);
+	#endif
+	
 	printf("Read configuration successfully!\n");
 }
 

@@ -23,6 +23,8 @@
 #ifndef __MAIN_H__
 	#define __MAIN_H__
 	
+	#define __DEBUG__
+	
 	#include <stdio.h>
 	#include <stdlib.h>
 
