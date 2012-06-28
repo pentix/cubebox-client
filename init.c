@@ -41,6 +41,25 @@ void read_configuration(void){
 }
 
 
+/* Init the SDL environment */
+void init_sdl_environment(void){
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0){
+		perror("Could not initialize screen!\n");
+		exit(1);
+	}
+	
+	window = SDL_SetVideoMode(__config.window_width, __config.window_height, __config.color_depth, SDL_SWSURFACE); 
+	if(window == NULL){
+		perror("Could not create window\n");
+		exit(1);
+	}
+	
+	
+	// Set @Exit function to SQL_Quit
+	atexit(SDL_Quit);
+}
+
+
 /* Init cubebox */
 void cubebox_init(void){
 	read_configuration();
@@ -52,6 +71,8 @@ void cubebox_init(void){
 	#endif
 	
 	printf("Read configuration successfully!\n");
+	
+	init_sdl_environment();
 }
 
 

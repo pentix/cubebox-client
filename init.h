@@ -35,5 +35,9 @@
 	
 	struct config __config;
 	
+	
+	// SDL stuff
+	SDL_Surface *window;
+
 		
 #endif
