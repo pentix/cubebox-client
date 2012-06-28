@@ -29,5 +29,13 @@
 	#include <stdlib.h>
 
 	#include <SDL/SDL.h>
+	
+	#include <pthread.h>
+	
+	
+	
+	// Our threads
+	// Window, Inputs & Physics
+	pthread_t sdl;
 
 #endif
