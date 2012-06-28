@@ -20,3 +20,14 @@
 */
 
 
+#include "main.h"
+#include "init.c"
+
+/* main function */
+int main(void){
+	cubebox_init();
+	
+	cubebox_destroy();
+	
+	return 0;
+}

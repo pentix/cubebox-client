@@ -20,3 +20,18 @@
 */
 
 
+#ifndef __INIT_H__
+	#define __INIT_H__
+	#include "../shared/libs/parser/parser.c"
+	
+	struct config{
+		unsigned int window_width;
+		unsigned int window_height;
+		unsigned char window_depth;
+		
+	
+		
+	};
+	
+	struct config __config;
+#endif

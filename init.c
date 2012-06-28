@@ -20,3 +20,36 @@
 */
 
 
+#include "init.h"
+
+/* Config values */
+struct config __config;
+FILE *config_file;
+
+
+/* Parse the config into the __config struct */
+void read_configuration(void){
+	config_file = fopen("../shared/etc/client.conf", "r");
+	search_init(config_file);
+	
+	__config.window_width  = atoi(search_for_key("window-width", 0));
+	__config.window_height = atoi(search_for_key("window-height", 0));
+	__config.window_depth  = (unsigned char)atoi(search_for_key("window-depth", 0));
+	
+	search_destroy();
+	fclose(config_file);
+}
+
+
+/* Init cubebox */
+void cubebox_init(void){
+	read_configuration();
+	
+	printf("Read configuration successfully!\n");
+}
+
+
+/* Destroy used memory ressources */
+void cubebox_destroy(void){
+	
+}
