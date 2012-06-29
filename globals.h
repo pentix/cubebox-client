@@ -19,4 +19,26 @@
  *
 */
 
+#ifndef __GLOBALS_H__
+#define __GLOBALS_H__
 
+#define __DEBUG__
+
+#define NUMTHREADS 1
+
+//Default
+#include <stdio.h>
+#include <stdlib.h>
+
+//SDL
+#include <SDL/SDL.h>
+
+//pthread
+#include <pthread.h>
+
+pthread_t thread[NUMTHREADS];
+// 0: SDL_GRAPHIC
+
+void* thread_stack[NUMTHREADS];
+
+#endif

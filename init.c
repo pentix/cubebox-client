@@ -19,73 +19,54 @@
  *
 */
 
-
+#include "globals.h"
 #include "init.h"
-
-/* Config values */
-struct config __config;
-FILE *config_file;
+//~ #include "../shared/libs/parser/parser.h"
 
 
-/* Parse the config into the __config struct */
-void read_configuration(void){
-	config_file = fopen("../shared/etc/client.conf", "r");
-	search_init(config_file);
-	
-	__config.window_width  = atoi(search_for_key("window-width", 0));
-	__config.window_height = atoi(search_for_key("window-height", 0));
-	__config.color_depth  = (unsigned char)atoi(search_for_key("color-depth", 0));
-		
-	search_destroy();
-	fclose(config_file);
-}
+//~ void config(void){
+	//~ search_init("../shared/etc/client.conf");
+	//~ 
+	//~ int window_width  = atoi(search_for_key("window-width", 0));
+	//~ int window_height = atoi(search_for_key("window-height", 0));
+	//~ int color_depth  = (unsigned char)atoi(search_for_key("color-depth", 0));
+		//~ 
+	//~ search_destroy();
+//~ }
 
 
 /* Init the SDL environment */
-void *init_sdl_environment(){
+void *init_sdl(){
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0){
 		perror("Could not initialize screen!\n");
 		exit(1);
 	}
 	
-	window = SDL_SetVideoMode(__config.window_width, __config.window_height, __config.color_depth, SDL_SWSURFACE); 
-	if(window == NULL){
+	if(SDL_SetVideoMode(800,600, 8, SDL_SWSURFACE) == NULL){
 		perror("Could not create window\n");
 		exit(1);
 	}
 	
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
-	
-	// Set @Exit function to SQL_Quit
-	atexit(SDL_Quit);
-	
-	// And now, read user inputs
-	read_inputs();
 
 	return NULL;
 }
 
 
 /* Init cubebox */
-void cubebox_init(void){
-	read_configuration();
+void init(void){
+	//~ config();
 	
 	#ifdef __DEBUG__
-		printf("Read window-width \t\t = \t\t %dpx\n", __config.window_width);
-		printf("Read window-height \t\t = \t\t %dpx\n", __config.window_height);
-		printf("Read color-depth \t\t = \t\t %d bit\n", __config.color_depth);
+		//~ printf("Read window-width \t\t = \t\t %dpx\n", __config.window_width);
+		//~ printf("Read window-height \t\t = \t\t %dpx\n", __config.window_height);
+		//~ printf("Read color-depth \t\t = \t\t %d bit\n", __config.color_depth);
 	#endif
 	
 	printf("Read configuration successfully!\n");
 	
-	// Start the SDL thread to display the window
-	// independent of the rest.
-	pthread_create(&sdl, NULL, init_sdl_environment, NULL);
+	pthread_create(&thread[0], NULL, init_sdl, NULL);
 }
 
 
-/* Destroy used memory ressources */
-void cubebox_destroy(void){
-	pthread_exit(NULL);
-}

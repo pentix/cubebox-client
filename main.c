@@ -20,16 +20,20 @@
 */
 
 
-#include "main.h"
-#include "init.c"
+#include "globals.h"
+#include "init.h"
 
-/* main function */
+void halt(){
+	int i;
+	for(i=0;i<NUMTHREADS;i++)
+		pthread_kill(thread[i], 3);
+	SDL_Quit();
+}
+
 int main(void){
-	cubebox_init();
-	
-	//~ getchar();
-	
-	cubebox_destroy();
-	
+	atexit(halt);
+	init();
+	sleep(1);
+	halt();
 	return 0;
 }

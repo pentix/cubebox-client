@@ -19,26 +19,10 @@
  *
 */
 
-
 #ifndef __INIT_H__
-	#define __INIT_H__
-	#include "../shared/libs/parser/parser.c"
-	#include "io/main.c"
-	
-	
-	// Config stuff
-	struct config{
-		unsigned int window_width;
-		unsigned int window_height;
-		unsigned char color_depth;
-			
-	};	
-	
-	struct config __config;
-	
-	
-	// SDL stuff
-	SDL_Surface *window;
+#define __INIT_H__
 
-		
+extern void init(void);
+extern void *init_sdl();
+
 #endif
