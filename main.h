@@ -32,8 +32,6 @@
 	
 	#include <pthread.h>
 	
-	
-	
 	// Our threads
 	// Window, Inputs & Physics
 	pthread_t sdl;

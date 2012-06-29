@@ -20,3 +20,20 @@
 */
 
 
+#include "main.h"
+
+/* Infinite loop to read all inputs */
+void read_inputs(void){
+	while(1){
+		while(SDL_PollEvent(&input_event)){
+			if(input_event.type == SDL_KEYDOWN){
+				switch(input_event.key.keysym.sym){
+				case SDLK_ESCAPE:
+					pthread_exit(NULL);
+					break;
+				default: break;
+				}
+			}
+		}
+	}
+}

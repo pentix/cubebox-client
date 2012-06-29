@@ -20,3 +20,11 @@
 */
 
 
+#ifndef __IO_MAIN_H__
+#define __IO_MAIN_H__
+
+// Double include?
+#include <SDL/SDL.h>
+SDL_Event input_event;
+
+#endif

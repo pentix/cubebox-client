@@ -23,6 +23,7 @@
 #ifndef __INIT_H__
 	#define __INIT_H__
 	#include "../shared/libs/parser/parser.c"
+	#include "io/main.c"
 	
 	
 	// Config stuff

@@ -59,6 +59,9 @@ void *init_sdl_environment(){
 	
 	// Set @Exit function to SQL_Quit
 	atexit(SDL_Quit);
+	
+	// And now, read user inputs
+	read_inputs();
 
 	return NULL;
 }

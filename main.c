@@ -27,7 +27,7 @@
 int main(void){
 	cubebox_init();
 	
-	getchar();
+	//~ getchar();
 	
 	cubebox_destroy();
 	
