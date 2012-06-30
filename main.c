@@ -23,6 +23,14 @@
 #include "globals.h"
 #include "init.h"
 
+#ifdef Win
+int WINAPI WinMain (HINSTANCE hThisInstance,
+                    HINSTANCE hPrevInstance,
+                    LPSTR lpszArgument,
+                    int nFunsterStil){main(NULL, NULL);}
+#endif
+
+
 void halt(){
 	int i;
 	for(i=0;i<NUMTHREADS;i++)
@@ -30,10 +38,11 @@ void halt(){
 	SDL_Quit();
 }
 
-int main(void){
+int main(int argc, char **argv){
 	atexit(halt);
 	init();
-	sleep(1);
+	getchar();
+	printf("Exit\n");
 	halt();
 	return 0;
 }

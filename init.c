@@ -49,7 +49,7 @@ void *init_sdl(){
 	
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
-
+	while(1);
 	return NULL;
 }
 

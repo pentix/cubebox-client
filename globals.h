@@ -36,6 +36,11 @@
 //pthread
 #include <pthread.h>
 
+//Windows
+#ifdef Win
+#include <windows.h>
+#endif
+
 pthread_t thread[NUMTHREADS];
 // 0: SDL_GRAPHIC
 
