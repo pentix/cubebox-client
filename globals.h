@@ -41,6 +41,9 @@
 	#include <windows.h>
 #endif
 
+//Parser
+#include "../shared/libs/parser/parser.h"
+
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
 
 pthread_t thread[NUMTHREADS];

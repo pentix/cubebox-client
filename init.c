@@ -24,15 +24,15 @@
 //~ #include "../shared/libs/parser/parser.h"
 
 
-//~ void config(void){
-	//~ search_init("../shared/etc/client.conf");
-	//~ 
-	//~ int window_width  = atoi(search_for_key("window-width", 0));
-	//~ int window_height = atoi(search_for_key("window-height", 0));
-	//~ int color_depth  = (unsigned char)atoi(search_for_key("color-depth", 0));
-		//~ 
-	//~ search_destroy();
-//~ }
+void config(void){
+	search_init("../shared/etc/client.conf");
+	
+	int window_width  = atoi(search_for_key("window-width", 0));
+	int window_height = atoi(search_for_key("window-height", 0));
+	int color_depth  = (unsigned char)atoi(search_for_key("color-depth", 0));
+		
+	search_destroy();
+}
 
 void halt(){
 	int i;
