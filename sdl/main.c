@@ -39,7 +39,6 @@ void sdl(){
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
-	#ifdef WIN
-		while(1);
-	#endif	
+		while(1)
+			usleep(50000);
 }
