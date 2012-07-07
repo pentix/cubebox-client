@@ -23,7 +23,11 @@
 #include "../globals.h"
 #include "main.h"
 
-void sound(){}
+
+void play_sound(unsigned char id){
+	Mix_PlayChannel(-1, sounds[id], 0);	
+}
+
 
 void sdl(){
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0){
@@ -39,5 +43,30 @@ void sdl(){
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
-	while(1)usleep(50000);
+	while(1)
+		usleep(50000);
 }
+
+
+void sound(void){
+	int i;
+	char filename[32];
+
+	for(i=0; i<NUMBER_OF_SOUNDS; i++){
+		sprintf(filename, "media/sound/%d.wav", i);
+		sounds[i] = Mix_LoadWAV(filename);
+		
+		printf("Loaded '%s'.wav", filename);
+	}
+
+	if(Mix_OpenAudio(42100, AUDIO_S16, 2, 4096))
+		return 1;
+
+	while(1){
+		usleep(50000);
+	}
+}
+
+//~ void destroy_sound(void){
+	//~ Mix_CloseAudio();
+//~ }

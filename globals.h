@@ -33,6 +33,7 @@
 
 //SDL
 #include <SDL/SDL.h>
+#include <SDL_mixer.h>
 
 //pthread
 #include <pthread.h>
