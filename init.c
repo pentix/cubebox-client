@@ -35,11 +35,12 @@ void config(void){
 	
 	// Graphic configuration
 	
-	char *val = search_for_key("window-width", 0);
+	
 	unsigned int *uint_val;
 	char *char_val;
 	unsigned char *uchar_val;
 	
+	char *val = search_for_key("window-width", 0);
 	while(val != NULL){
 		// window-width
 		falloc(uint_val, sizeof(unsigned int));
@@ -50,19 +51,19 @@ void config(void){
 		*val = search_for_key("window-height", 0);
 		falloc(uint_val, sizeof(unsigned int))
 		*uint_val = atoi(val);
-		stack_push(0, 1, (void *)uint_val);
+		stack_push(0, 2, (void *)uint_val);
 		
 		// color-depth
 		*val = search_for_key("color-depth", 0);
 		falloc(uchar_val, sizeof(unsigned char))
 		*uchar_val = (unsigned char)atoi(val);
-		stack_push(0, 1, (void *)uchar_val);
+		stack_push(0, 3, (void *)uchar_val);
 		
 		// fullscreen
 		*val = search_for_key("fullscreen", 0);
 		falloc(char_val, sizeof(unsigned char))
 		*char_val = (char)atoi(val);
-		stack_push(0, 1, (void *)char_val);
+		stack_push(0, 0, (void *)char_val);
 		
 	}
 	
