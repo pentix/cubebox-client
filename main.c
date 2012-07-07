@@ -34,10 +34,10 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 int main(int argc, char **argv){
 	atexit(halt);
 	init();
-	char *asdf;
-	falloc(asdf,410);
+	
 	getchar();
 	printf("Exit\n");
+	
 	halt();
 	return 0;
 }
