@@ -72,6 +72,8 @@ void *init_io(){
 
 /* Init cubebox */
 void init(void){
+	int i;
+	for(i=0;i<NUMTHREADS;i++) falloc(thread_stack[i], sizeof(stack));
 	config();
 	printf("Read configuration successfully!\n");
 	pthread_create(&thread[0], NULL, init_sdl, NULL);

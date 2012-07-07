@@ -62,12 +62,11 @@ typedef struct stack{
 
 
 pthread_t thread[NUMTHREADS];
+stack* thread_stack[NUMTHREADS];
 // 0: GRAPHIC
 // 1: SOUND
 // 2: GEN_MAP
 // 3: SYNC_PLAYER
 // 4: IO_PHYSIC
-
-void* thread_stack[NUMTHREADS];
 
 #endif
