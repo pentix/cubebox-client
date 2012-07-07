@@ -27,6 +27,6 @@
 #include "../globals.h"
 SDL_Event input_event;
 
-extern void io();
+extern void io(stack* stackptr);
 
 #endif

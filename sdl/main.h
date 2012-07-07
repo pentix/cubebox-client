@@ -22,11 +22,6 @@
 #ifndef __SDL_MAIN_H__
 #define __SDL_MAIN_H__
 
-extern void sound();
-extern void sdl();
-extern void play_sound(unsigned char id);
-
-
 enum {
 	SND_JUMP=0,
 	NUMBER_OF_SOUNDS
@@ -34,6 +29,10 @@ enum {
 
 // Sounds
 Mix_Chunk *sounds[NUMBER_OF_SOUNDS];
+
+extern void sdl(stack* stackptr);
+extern void sound(stack* stackptr);
+extern void play_sound(unsigned char id);
 
 
 #endif

@@ -23,6 +23,6 @@
 #ifndef __MAP_MAIN_H__
 #define __MAP_MAIN_H__
 
-extern void map();
+extern void map(stack* stackptr);
 
 #endif

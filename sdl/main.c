@@ -28,8 +28,7 @@ void play_sound(unsigned char id){
 	Mix_PlayChannel(-1, sounds[id], 0);	
 }
 
-
-void sdl(){
+void sdl(stack* stackptr){
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0){
 		perror("Could not initialize screen!\n");
 		exit(1);
@@ -48,7 +47,7 @@ void sdl(){
 }
 
 
-void sound(void){
+void sound(stack* stackptr){
 	int i;
 	char filename[32];
 

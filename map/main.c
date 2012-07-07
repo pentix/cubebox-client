@@ -23,4 +23,4 @@
 #include "../globals.h"
 #include "main.h"
 
-void map(){;}
+void map(stack* stackptr){;}
