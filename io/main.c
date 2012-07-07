@@ -25,7 +25,7 @@
 
 /* Infinite loop to read all inputs */
 void read_inputs(void){
-	while(SDL_PollEvent(&input_event)){
+	while(SDL_PollEvent(&input_event) == 1){
 		if(input_event.type == SDL_KEYDOWN){
 			switch(input_event.key.keysym.sym){
 			case SDLK_ESCAPE:
@@ -34,6 +34,8 @@ void read_inputs(void){
 			default: break;
 			}
 		}
+		
+		usleep(50000);
 	}
 }
 

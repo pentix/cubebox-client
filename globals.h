@@ -29,6 +29,7 @@
 //Default
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 //SDL
 #include <SDL/SDL.h>
