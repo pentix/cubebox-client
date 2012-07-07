@@ -93,10 +93,13 @@ void init(void){
 	for(i=0;i<NUMTHREADS;i++){
 		falloc(thread_stack[i], sizeof(stack));
 		thread_stack[i]->id=0xFF;
+		pthread_mutex_init(&mutex[i], NULL);
 	}
 	
 	config();
 	printf("Read configuration successfully!\n");
+	
+	
 	pthread_create(&thread[0], NULL, init_sdl, NULL);
 	pthread_create(&thread[1], NULL, init_sound, NULL);
 	pthread_create(&thread[2], NULL, init_map, NULL);

@@ -64,6 +64,8 @@ typedef struct stack{
 
 pthread_t thread[NUMTHREADS];
 stack *thread_stack[NUMTHREADS];
+pthread_mutex_t mutex[NUMTHREADS];
+
 // 0: GRAPHIC
 // 1: SOUND
 // 2: GEN_MAP
