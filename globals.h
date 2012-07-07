@@ -41,6 +41,8 @@
 #include <windows.h>
 #endif
 
+#define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
+
 pthread_t thread[NUMTHREADS];
 // 0: SDL_GRAPHIC
 
