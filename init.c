@@ -34,26 +34,16 @@
 	//~ search_destroy();
 //~ }
 
+void halt(){
+	int i;
+	for(i=0;i<NUMTHREADS;i++)
+		pthread_kill(thread[i], 3);
+	SDL_Quit();
+}
 
 /* Init the SDL environment */
 void *init_sdl(){
-	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0){
-		perror("Could not initialize screen!\n");
-		exit(1);
-	}
-	
-	if(SDL_SetVideoMode(800,600, 8, SDL_SWSURFACE) == NULL){
-		perror("Could not create window\n");
-		exit(1);
-	}
-	
-	// Set window caption
-	SDL_WM_SetCaption("Cubebox", "Cubebox");
-	
-	#ifdef win
-		while(1);
-	#endif
-	
+	sdl();
 	return NULL;
 }
 

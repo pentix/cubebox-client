@@ -31,16 +31,11 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 #endif
 
 
-void halt(){
-	int i;
-	for(i=0;i<NUMTHREADS;i++)
-		pthread_kill(thread[i], 3);
-	SDL_Quit();
-}
-
 int main(int argc, char **argv){
 	atexit(halt);
 	init();
+	char *asdf;
+	falloc(asdf,410);
 	getchar();
 	printf("Exit\n");
 	halt();
