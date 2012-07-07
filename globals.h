@@ -45,6 +45,14 @@
 //Parser
 #include "../shared/libs/parser/parser.h"
 
+//FIFO
+typedef struct fifo{
+	unsigned char id;
+	void *val;
+	struct fifo *prev;
+	struct fifo *next;
+} fifo;
+
 #include "com/server/main.h"
 #include "com/thread/main.h"
 #include "io/main.h"
