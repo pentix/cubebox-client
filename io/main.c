@@ -25,15 +25,31 @@
 
 /* Infinite loop to read all inputs */
 void read_inputs(void){
+	int readin_keys[256] = {0};//@params 0=key up; 1=key down
+
 	while(1){
 	while(SDL_PollEvent(&input_event) == 1){
 		if(input_event.type == SDL_KEYDOWN){
-			switch(input_event.key.keysym.sym){
+			readin_keys[input_event.key.keysym.sym]=1;
+			/*
+			switch(input_event.key.keysym.sym){			
 			case SDLK_ESCAPE:
 				halt();
 				break;
 			default: break;
 			}
+			*/
+		}
+		if(input_event.type==SDL_KEYUP){
+			readin_keys[input_event.key.keysym.sym]=0;
+		}
+		
+		switch(readin_keys[input_event.key.keysym.sym]){
+			case (readin_keys[SDLK_ESCAPE]):
+				halt();
+			break;
+
+			default: break;
 		}
 	}
 	usleep(50000);
