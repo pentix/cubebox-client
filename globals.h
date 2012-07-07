@@ -37,8 +37,8 @@
 #include <pthread.h>
 
 //Windows
-#ifdef Win
-#include <windows.h>
+#ifdef WIN
+	#include <windows.h>
 #endif
 
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);

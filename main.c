@@ -23,7 +23,7 @@
 #include "globals.h"
 #include "init.h"
 
-#ifdef Win
+#ifdef WIN
 int WINAPI WinMain (HINSTANCE hThisInstance,
                     HINSTANCE hPrevInstance,
                     LPSTR lpszArgument,

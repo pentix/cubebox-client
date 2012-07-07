@@ -20,6 +20,8 @@
 */
 
 
+#include "../globals.h"
+
 int sdl(){
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0){
 		perror("Could not initialize screen!\n");
@@ -34,7 +36,7 @@ int sdl(){
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
-	#ifdef win
+	#ifdef WIN
 		while(1);
 	#endif	
 }
