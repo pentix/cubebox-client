@@ -21,11 +21,9 @@
 
 #include "globals.h"
 #include "init.h"
-//~ #include "../shared/libs/parser/parser.h"
-
 
 void config(void){
-	search_init("../shared/etc/client.conf");
+	search_init("./etc/client.conf");
 	
 	int window_width  = atoi(search_for_key("window-width", 0));
 	int window_height = atoi(search_for_key("window-height", 0));
@@ -47,20 +45,40 @@ void *init_sdl(){
 	return NULL;
 }
 
+/* Init sound */
+void *init_sound(){
+	sound();
+	return NULL;
+}
+
+/* Init map */
+void *init_map(){
+	map();
+	return NULL;
+}
+
+/* Init com */
+void *init_com(){
+	com();
+	return NULL;
+}
+
+/* Init io */
+void *init_io(){
+	io();
+	return NULL;
+}
+
 
 /* Init cubebox */
 void init(void){
-	//~ config();
-	
-	#ifdef __DEBUG__
-		//~ printf("Read window-width \t\t = \t\t %dpx\n", __config.window_width);
-		//~ printf("Read window-height \t\t = \t\t %dpx\n", __config.window_height);
-		//~ printf("Read color-depth \t\t = \t\t %d bit\n", __config.color_depth);
-	#endif
-	
+	config();
 	printf("Read configuration successfully!\n");
-	
 	pthread_create(&thread[0], NULL, init_sdl, NULL);
+	pthread_create(&thread[1], NULL, init_sound, NULL);
+	pthread_create(&thread[2], NULL, init_map, NULL);
+	pthread_create(&thread[3], NULL, init_com, NULL);
+	pthread_create(&thread[4], NULL, init_io, NULL);
 }
 
 

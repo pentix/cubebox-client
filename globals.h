@@ -24,7 +24,7 @@
 
 #define __DEBUG__
 
-#define NUMTHREADS 1
+#define NUMTHREADS 5
 
 //Default
 #include <stdio.h>
@@ -44,10 +44,19 @@
 //Parser
 #include "../shared/libs/parser/parser.h"
 
+#include "com/server/main.h"
+#include "com/thread/main.h"
+#include "io/main.h"
+#include "sdl/main.h"
+
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
 
 pthread_t thread[NUMTHREADS];
-// 0: SDL_GRAPHIC
+// 0: GRAPHIC
+// 1: SOUND
+// 2: GEN_MAP
+// 3: SYNC_PLAYER
+// 4: IO_PHYSIC
 
 void* thread_stack[NUMTHREADS];
 

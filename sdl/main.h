@@ -19,4 +19,10 @@
  *
 */
 
+#ifndef __SDL_MAIN_H__
+#define __SDL_MAIN_H__
 
+extern void sdl();
+extern void sound();
+
+#endif

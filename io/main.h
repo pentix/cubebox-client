@@ -27,4 +27,6 @@
 #include <SDL/SDL.h>
 SDL_Event input_event;
 
+extern void io();
+
 #endif

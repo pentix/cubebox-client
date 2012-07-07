@@ -19,4 +19,9 @@
  *
 */
 
+#ifndef __COM_THREAD_MAIN_H__
+#define __COM_THREAD_MAIN_H__
 
+extern void init_com();
+
+#endif

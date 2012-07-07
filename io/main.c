@@ -20,7 +20,10 @@
 */
 
 
+#include "../globals.h"
 #include "main.h"
+
+void io(){}
 
 /* Infinite loop to read all inputs */
 void read_inputs(void){
