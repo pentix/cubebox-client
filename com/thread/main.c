@@ -20,3 +20,24 @@
 */
 
 
+#include "main.h"
+#include "../../globals.h"
+
+void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size){
+	void *HEAD;
+	HEAD=thread_stack[thread_id];
+	falloc(thread_stack[thread_id], sizeof(stack));
+	thread_stack[thread_id]->next=HEAD;
+	thread_stack[thread_id]->id=id;
+	falloc(thread_stack[thread_id]->val,val_size);
+	memcpy(thread_stack[thread_id]->val, val, val_size);
+}
+
+unsigned char stack_drop(unsigned int thread_id ){
+	void *HEAD;
+	HEAD=thread_stack[thread_id]->next;
+	free(thread_stack[thread_id]);
+	thread_stack[thread_id]=HEAD;
+	return (thread_stack[thread_id]->id);
+}
+

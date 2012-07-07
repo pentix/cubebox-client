@@ -63,7 +63,6 @@ typedef struct stack{
 
 pthread_t thread[NUMTHREADS];
 stack *thread_stack[NUMTHREADS];
-stack *stack_last_element[NUMTHREADS];
 // 0: GRAPHIC
 // 1: SOUND
 // 2: GEN_MAP

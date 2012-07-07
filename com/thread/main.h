@@ -23,5 +23,6 @@
 #define __COM_THREAD_MAIN_H__
 
 extern void com();
-
+extern void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size);
+extern unsigned char stack_drop(unsigned int thread_id);
 #endif

@@ -23,50 +23,28 @@
 #include "globals.h"
 #include "init.h"
 
-void stack_push(unsigned int stack_id, unsigned char id, void *val){
-	falloc(stack_last_element[stack_id]->next, sizeof(stack));
-	stack_last_element[stack_id] = stack_last_element[stack_id]->next;
-	stack_last_element[stack_id]->id = id;
-	stack_last_element[stack_id]->val = val;
-}
-
 void config(void){
 	search_init("./etc/client.conf");
 	
 	// Graphic configuration
+	char *check;
+	int val;
+
+	// window-width
+	val=atoi(((check=search_for_key("window-width", 1))!=NULL)?check:"0");
+	stack_push(0, 1, &val, sizeof(int));
 	
+	// window-height
+	val=atoi(((check=search_for_key("window-height", 1))!=NULL)?check:"0");
+	stack_push(0, 2, &val, sizeof(int));
 	
-	unsigned int *uint_val;
-	char *char_val;
-	unsigned char *uchar_val;
+	// color-depth
+	val=atoi(((check=search_for_key("color-depth", 1))!=NULL)?check:"0");
+	stack_push(0, 3, &val, sizeof(int));
 	
-	char *val = search_for_key("window-width", 0);
-	while(val != NULL){
-		// window-width
-		falloc(uint_val, sizeof(unsigned int));
-		uint_val = atoi(val);
-		stack_push(0, 1, (void *)uint_val);
-		
-		// window-height
-		*val = search_for_key("window-height", 0);
-		falloc(uint_val, sizeof(unsigned int))
-		*uint_val = atoi(val);
-		stack_push(0, 2, (void *)uint_val);
-		
-		// color-depth
-		*val = search_for_key("color-depth", 0);
-		falloc(uchar_val, sizeof(unsigned char))
-		*uchar_val = (unsigned char)atoi(val);
-		stack_push(0, 3, (void *)uchar_val);
-		
-		// fullscreen
-		*val = search_for_key("fullscreen", 0);
-		falloc(char_val, sizeof(unsigned char))
-		*char_val = (char)atoi(val);
-		stack_push(0, 0, (void *)char_val);
-		
-	}
-	
+	// fullscreen
+	val=atoi(((check=search_for_key("fullscreen", 1))!=NULL)?check:"0");
+	stack_push(0, 0, &val, sizeof(int));
 	
 	search_destroy();
 }
@@ -114,7 +92,7 @@ void init(void){
 	int i;
 	for(i=0;i<NUMTHREADS;i++){
 		falloc(thread_stack[i], sizeof(stack));
-		stack_last_element[i] = thread_stack[i];
+		thread_stack[i]->id=0xFF;
 	}
 	
 	config();
