@@ -46,12 +46,6 @@
 //Parser
 #include "../shared/libs/parser/parser.h"
 
-#include "com/server/main.h"
-#include "com/thread/main.h"
-#include "io/main.h"
-#include "sdl/main.h"
-#include "map/main.h"
-
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
 
 //FIFO
@@ -61,6 +55,7 @@ typedef struct stack{
 	struct stack *next;
 } stack;
 
+extern void halt();
 
 pthread_t thread[NUMTHREADS];
 stack *thread_stack[NUMTHREADS];
@@ -71,5 +66,11 @@ pthread_mutex_t mutex[NUMTHREADS];
 // 2: GEN_MAP
 // 3: SYNC_PLAYER
 // 4: IO_PHYSIC
+
+#include "com/server/main.h"
+#include "com/thread/main.h"
+#include "io/main.h"
+#include "sdl/main.h"
+#include "map/main.h"
 
 #endif

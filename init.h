@@ -23,7 +23,5 @@
 #define __INIT_H__
 
 extern void init(void);
-extern void halt(void);
-extern void *init_sdl();
 
 #endif

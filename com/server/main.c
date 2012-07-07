@@ -19,4 +19,7 @@
  *
 */
 
-void com(){}
+#include "../../globals.h"
+#include "main.h"
+
+void com(stack* stackptr){}

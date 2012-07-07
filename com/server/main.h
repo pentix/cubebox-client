@@ -22,6 +22,6 @@
 #ifndef __COM_SERVER_MAIN_H__
 #define __COM_SERVER_MAIN_H__
 
-extern void com();
+extern void com(stack* stackptr);
 
 #endif

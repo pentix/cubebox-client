@@ -23,9 +23,9 @@
 #include "../globals.h"
 #include "main.h"
 
-void sound(){}
+void sound(stack* stackptr){}
 
-void sdl(){
+void sdl(stack* stackptr){
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0){
 		perror("Could not initialize screen!\n");
 		exit(1);

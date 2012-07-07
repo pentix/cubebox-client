@@ -57,32 +57,32 @@ void halt(){
 }
 
 /* Init the SDL environment */
-void *init_sdl(){
-	sdl();
+void *init_sdl(void* stackptr){
+	sdl((stack*) stackptr);
 	return NULL;
 }
 
 /* Init sound */
-void *init_sound(){
-	sound();
+void *init_sound(void* stackptr){
+	sound((stack*) stackptr);
 	return NULL;
 }
 
 /* Init map */
-void *init_map(){
-	map();
+void *init_map(void* stackptr){
+	map((stack*) stackptr);
 	return NULL;
 }
 
 /* Init com */
-void *init_com(){
-	com();
+void *init_com(void* stackptr){
+	com((stack*) stackptr);
 	return NULL;
 }
 
 /* Init io */
-void *init_io(){
-	io();
+void *init_io(void* stackptr){
+	io((stack*) stackptr);
 	return NULL;
 }
 
@@ -100,11 +100,11 @@ void init(void){
 	printf("Read configuration successfully!\n");
 	
 	
-	pthread_create(&thread[0], NULL, init_sdl, NULL);
-	pthread_create(&thread[1], NULL, init_sound, NULL);
-	pthread_create(&thread[2], NULL, init_map, NULL);
-	pthread_create(&thread[3], NULL, init_com, NULL);
-	pthread_create(&thread[4], NULL, init_io, NULL);
+	pthread_create(&thread[0], NULL, init_sdl, (void *)thread_stack[0]);
+	pthread_create(&thread[1], NULL, init_sound, (void *)thread_stack[0]);
+	pthread_create(&thread[2], NULL, init_map, (void *)thread_stack[0]);
+	pthread_create(&thread[3], NULL, init_com, (void *)thread_stack[0]);
+	pthread_create(&thread[4], NULL, init_io, (void *)thread_stack[0]);
 }
 
 

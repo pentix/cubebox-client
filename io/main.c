@@ -24,7 +24,7 @@
 #include "main.h"
 
 /* Infinite loop to read all inputs */
-void read_inputs(void){
+void read_inputs(stack* stackptr){
 	int readin_keys[256] = {0};//@params 0=key up; 1=key down
 	int i;
 
@@ -35,7 +35,7 @@ void read_inputs(void){
 			/*
 			switch(input_event.key.keysym.sym){			
 			case SDLK_ESCAPE:
-				halt();
+				halt(stack* stackptr);
 				break;
 			default: break;
 			}
@@ -60,6 +60,6 @@ void read_inputs(void){
 	}
 }
 
-void io(void){
-	read_inputs();
+void io(stack* stackptr){
+	read_inputs(stackptr);
 }
