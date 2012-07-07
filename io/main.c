@@ -23,8 +23,6 @@
 #include "../globals.h"
 #include "main.h"
 
-void io(){}
-
 /* Infinite loop to read all inputs */
 void read_inputs(void){
 	while(1){
@@ -32,11 +30,15 @@ void read_inputs(void){
 			if(input_event.type == SDL_KEYDOWN){
 				switch(input_event.key.keysym.sym){
 				case SDLK_ESCAPE:
-					pthread_exit(NULL);
+					halt();
 					break;
 				default: break;
 				}
 			}
 		}
 	}
+}
+
+void io(void){
+	read_inputs();
 }

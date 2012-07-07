@@ -24,7 +24,7 @@
 #define __IO_MAIN_H__
 
 // Double include?
-#include <SDL/SDL.h>
+#include "../globals.h"
 SDL_Event input_event;
 
 extern void io();
