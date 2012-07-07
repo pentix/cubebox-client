@@ -48,6 +48,7 @@
 #include "com/thread/main.h"
 #include "io/main.h"
 #include "sdl/main.h"
+#include "map/main.h"
 
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
 
