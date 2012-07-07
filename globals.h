@@ -45,14 +45,6 @@
 //Parser
 #include "../shared/libs/parser/parser.h"
 
-//FIFO
-typedef struct fifo{
-	unsigned char id;
-	void *val;
-	struct fifo *prev;
-	struct fifo *next;
-} fifo;
-
 #include "com/server/main.h"
 #include "com/thread/main.h"
 #include "io/main.h"
@@ -60,6 +52,14 @@ typedef struct fifo{
 #include "map/main.h"
 
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
+
+//FIFO
+typedef struct stack{
+	unsigned char id;
+	void *val;
+	struct stack *next;
+} stack;
+
 
 pthread_t thread[NUMTHREADS];
 // 0: GRAPHIC
