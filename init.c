@@ -19,16 +19,54 @@
  *
 */
 
+
 #include "globals.h"
 #include "init.h"
+
+void stack_push(unsigned int stack_id, unsigned char id, void *val){
+	falloc(stack_last_element[stack_id]->next, sizeof(stack));
+	stack_last_element[stack_id] = stack_last_element[stack_id]->next;
+	stack_last_element[stack_id]->id = id;
+	stack_last_element[stack_id]->val = val;
+}
 
 void config(void){
 	search_init("./etc/client.conf");
 	
-	int window_width  = atoi(search_for_key("window-width", 0));
-	int window_height = atoi(search_for_key("window-height", 0));
-	int color_depth  = (unsigned char)atoi(search_for_key("color-depth", 0));
+	// Graphic configuration
+	
+	char *val = search_for_key("window-width", 0);
+	unsigned int *uint_val;
+	char *char_val;
+	unsigned char *uchar_val;
+	
+	while(val != NULL){
+		// window-width
+		falloc(uint_val, sizeof(unsigned int));
+		uint_val = atoi(val);
+		stack_push(0, 1, (void *)uint_val);
 		
+		// window-height
+		*val = search_for_key("window-height", 0);
+		falloc(uint_val, sizeof(unsigned int))
+		*uint_val = atoi(val);
+		stack_push(0, 1, (void *)uint_val);
+		
+		// color-depth
+		*val = search_for_key("color-depth", 0);
+		falloc(uchar_val, sizeof(unsigned char))
+		*uchar_val = (unsigned char)atoi(val);
+		stack_push(0, 1, (void *)uchar_val);
+		
+		// fullscreen
+		*val = search_for_key("fullscreen", 0);
+		falloc(char_val, sizeof(unsigned char))
+		*char_val = (char)atoi(val);
+		stack_push(0, 1, (void *)char_val);
+		
+	}
+	
+	
 	search_destroy();
 }
 
@@ -73,7 +111,11 @@ void *init_io(){
 /* Init cubebox */
 void init(void){
 	int i;
-	for(i=0;i<NUMTHREADS;i++) falloc(thread_stack[i], sizeof(stack));
+	for(i=0;i<NUMTHREADS;i++){
+		falloc(thread_stack[i], sizeof(stack));
+		stack_last_element[i] = thread_stack[i];
+	}
+	
 	config();
 	printf("Read configuration successfully!\n");
 	pthread_create(&thread[0], NULL, init_sdl, NULL);
