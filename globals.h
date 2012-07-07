@@ -35,6 +35,7 @@
 
 //pthread
 #include <pthread.h>
+#include <signal.h>
 
 //Windows
 #ifdef WIN
