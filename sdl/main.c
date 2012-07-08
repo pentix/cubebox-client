@@ -145,21 +145,17 @@ void sdl(stack* stackptr){
 		if((stackptr=stack_drop(0))==NULL) break;
 	}
 	pthread_mutex_unlock(&mutex[0]);
-		
-	//~ uint32_t flags;
 	
-	//~ flags = SDL_SWSURFACE;
+	
+	
+	uint32_t flags;
+	flags = SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE;
 
-	//~ flags  = SDL_OPENGL;
-	//~ flags |= SDL_GL_DOUBLEBUFFER;
-	//~ flags |= SDL_HWPALETTE;
-	//~ flags |= (SDL_FULLSCREEN*fullscreen);
-	//~ flags |= (SDL_GetVideoInfo()->hw_available)?SDL_HWSURFACE:SDL_SWSURFACE;
-	//~ flags |= (!!(SDL_GetVideoInfo()->blit_hw))*SDL_HWSURFACE;
+	if(fullscreen == 1)
+		flags |= SDL_FULLSCREEN;
 
-    //~ SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
-	if(SDL_SetVideoMode(window_width, window_height, color_depth, SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE) == NULL){
+	if(SDL_SetVideoMode(window_width, window_height, color_depth, flags) == NULL){
 		perror("Could not create window\n");
 		exit(1);
 	}
