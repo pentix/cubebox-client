@@ -90,10 +90,6 @@ void *init_io(void* stackptr){
 	return NULL;
 }
 
-void handle_sigabrt(void){
-	printf("SIGABRT\n");
-}
-
 /* Init cubebox */
 void init(void){
 	int i;
@@ -103,7 +99,7 @@ void init(void){
 		pthread_mutex_init(&mutex[i], NULL);
 	}
 	
-	signal(SIGABRT, handle_sigabrt);
+	signal(SIGABRT, NULL);
 	
 	config();
 	printf("Read configuration successfully!\n");
