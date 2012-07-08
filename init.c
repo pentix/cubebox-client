@@ -99,12 +99,11 @@ void init(void){
 	config();
 	printf("Read configuration successfully!\n");
 	
-	
 	pthread_create(&thread[0], NULL, init_sdl, (void *)thread_stack[0]);
-	pthread_create(&thread[1], NULL, init_sound, (void *)thread_stack[0]);
-	pthread_create(&thread[2], NULL, init_map, (void *)thread_stack[0]);
-	pthread_create(&thread[3], NULL, init_com, (void *)thread_stack[0]);
-	pthread_create(&thread[4], NULL, init_io, (void *)thread_stack[0]);
+	pthread_create(&thread[1], NULL, init_sound, (void *)thread_stack[1]);
+	pthread_create(&thread[2], NULL, init_map, (void *)thread_stack[2]);
+	pthread_create(&thread[3], NULL, init_com, (void *)thread_stack[3]);
+	pthread_create(&thread[4], NULL, init_io, (void *)thread_stack[4]);
 }
 
 

@@ -25,7 +25,8 @@
 
 void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size){
 	void *HEAD;
-	
+
+
 	pthread_mutex_lock(&mutex[thread_id]);
 		HEAD=thread_stack[thread_id];
 		falloc(thread_stack[thread_id], sizeof(stack));
@@ -38,6 +39,7 @@ void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned in
 
 unsigned char stack_drop(unsigned int thread_id ){
 	void *HEAD;
+	if(thread_stack[thread_id]->id == 0xFF) return 0xFF;
 	HEAD=thread_stack[thread_id]->next;
 	free(thread_stack[thread_id]);
 	thread_stack[thread_id]=HEAD;

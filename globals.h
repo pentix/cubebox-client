@@ -34,6 +34,8 @@
 //SDL
 #include <SDL/SDL.h>
 #include <SDL_mixer.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 
 //pthread
 #include <pthread.h>
