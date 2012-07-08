@@ -148,7 +148,7 @@ void sdl(stack* stackptr){
 	
 	
 	
-	uint32_t flags;
+	Uint32 flags;
 	flags = SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE;
 
 	if(fullscreen == 1)
