@@ -64,24 +64,28 @@ void *init_sdl(void* stackptr){
 
 /* Init sound */
 void *init_sound(void* stackptr){
+	usleep(75000);
 	sound((stack*) stackptr);
 	return NULL;
 }
 
 /* Init map */
 void *init_map(void* stackptr){
+	usleep(50000);
 	map((stack*) stackptr);
 	return NULL;
 }
 
 /* Init com */
 void *init_com(void* stackptr){
+	usleep(50000);
 	com((stack*) stackptr);
 	return NULL;
 }
 
 /* Init io */
 void *init_io(void* stackptr){
+	usleep(100000);
 	io((stack*) stackptr);
 	return NULL;
 }

@@ -26,7 +26,6 @@
 /* Infinite loop to read all inputs */
 void read_inputs(stack* stackptr){
 	int readin_keys[256] = {0};//@params 0=key up; 1=key down
-	int i;
 
 	while(1){
 		while(SDL_PollEvent(&input_event) == 1){
@@ -43,6 +42,7 @@ void read_inputs(stack* stackptr){
 
 			if(readin_keys[SDLK_W]==1){
 				//move player.....
+
 			}
 		}
 	usleep(50000);

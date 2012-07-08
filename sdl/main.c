@@ -145,18 +145,20 @@ void sdl(stack* stackptr){
 	}
 	pthread_mutex_unlock(&mutex[0]);
 		
-	uint32_t flags;
+	//~ uint32_t flags;
+	
+	//~ flags = SDL_SWSURFACE;
 
-	flags  = SDL_OPENGL;
-	flags |= SDL_GL_DOUBLEBUFFER;
-	flags |= SDL_HWPALETTE;
-	flags |= (SDL_FULLSCREEN*fullscreen);
-	flags |= (SDL_GetVideoInfo()->hw_available)?SDL_HWSURFACE:SDL_SWSURFACE;
-	flags |= (!!(SDL_GetVideoInfo()->blit_hw))*SDL_HWSURFACE;
+	//~ flags  = SDL_OPENGL;
+	//~ flags |= SDL_GL_DOUBLEBUFFER;
+	//~ flags |= SDL_HWPALETTE;
+	//~ flags |= (SDL_FULLSCREEN*fullscreen);
+	//~ flags |= (SDL_GetVideoInfo()->hw_available)?SDL_HWSURFACE:SDL_SWSURFACE;
+	//~ flags |= (!!(SDL_GetVideoInfo()->blit_hw))*SDL_HWSURFACE;
 
-    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+    //~ SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
-	if(SDL_SetVideoMode(window_width, window_height, color_depth, flags) == NULL){
+	if(SDL_SetVideoMode(window_width, window_height, color_depth, SDL_SWSURFACE	) == NULL){
 		perror("Could not create window\n");
 		exit(1);
 	}
@@ -195,15 +197,19 @@ void sound(stack* stackptr){
 	int i;
 	char filename[32];
 
+	if(Mix_OpenAudio(22050, AUDIO_S16, 2, 4096))
+		return;
+
 	for(i=0; i<NUMBER_OF_SOUNDS; i++){
 		sprintf(filename, "media/sound/%d.wav", i);
 		sounds[i] = Mix_LoadWAV(filename);
+		if(sounds[i] == NULL){
+			perror("Error: Could not read sound files correctly!\n");
+			halt();
+		}
 		
 		printf("Loaded '%s'\n", filename);
 	}
-
-	if(Mix_OpenAudio(42100, AUDIO_S16, 2, 4096))
-		return;
 
 	while(1){
 		usleep(50000);
