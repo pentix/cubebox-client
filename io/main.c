@@ -29,6 +29,10 @@ void read_inputs(stack* stackptr){
 
 	while(1){
 		while(SDL_PollEvent(&input_event) == 1){
+			if(input_event.type == SDL_QUIT){
+				halt();
+			} 
+			
 			if(input_event.type == SDL_KEYDOWN){
 				readin_keys[input_event.key.keysym.sym]=1;
 			}

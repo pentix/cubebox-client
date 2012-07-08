@@ -196,6 +196,7 @@ void sdl(stack* stackptr){
 void sound(stack* stackptr){
 	int i;
 	char filename[32];
+	unsigned char id;
 
 	if(Mix_OpenAudio(22050, AUDIO_S16, 2, 4096))
 		return;
@@ -212,6 +213,16 @@ void sound(stack* stackptr){
 	}
 
 	while(1){
+		// We can directly receive the id and play it
+		pthread_mutex_lock(&mutex[1]);		
+			id = stack_drop(1);
+		pthread_mutex_unlock(&mutex[1]);
+		
+		if(id != 255){
+			play_sound(id);
+			SDL_Delay(500);
+		}
+		
 		usleep(50000);
 	}
 }

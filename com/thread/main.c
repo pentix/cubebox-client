@@ -32,8 +32,11 @@ void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned in
 		falloc(thread_stack[thread_id], sizeof(stack));
 		thread_stack[thread_id]->next=HEAD;
 		thread_stack[thread_id]->id=id;
-		falloc(thread_stack[thread_id]->val,val_size);
-		memcpy(thread_stack[thread_id]->val, val, val_size);
+		
+		if(val != NULL && val_size != 0){
+			falloc(thread_stack[thread_id]->val,val_size);
+			memcpy(thread_stack[thread_id]->val, val, val_size);
+		}
 	pthread_mutex_unlock(&mutex[thread_id]);
 }
 
