@@ -104,10 +104,6 @@ void init(void){
 	config();
 	printf("Read configuration successfully!\n");
 	
-	// Push something to stack, so next time we can get directly
-	// the id of the next stack object.
-	stack_push(1, 0, NULL, 0);
-	
 	
 	pthread_create(&thread[0], NULL, init_sdl, (void *)thread_stack[0]);
 	pthread_create(&thread[1], NULL, init_sound, (void *)thread_stack[1]);

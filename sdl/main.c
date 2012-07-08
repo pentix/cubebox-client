@@ -130,18 +130,19 @@ void sdl(stack* stackptr){
 	
 	// Read configuration
 	pthread_mutex_lock(&mutex[0]);
+	stackptr=stack_head(0);
 	while(1){
 		if(stackptr->id==0)
-				fullscreen = *((int*)stackptr->val);
+			fullscreen = *((int*)stackptr->val);
 		if(stackptr->id==1)
-				window_width = *((int*)stackptr->val);
+			window_width = *((int*)stackptr->val);
 		if(stackptr->id==2)
-				window_height = *((int*)stackptr->val);
+			window_height = *((int*)stackptr->val);
 		if(stackptr->id==3)
-				color_depth = *((int*)stackptr->val);
+			color_depth = *((int*)stackptr->val);
 
-		stackptr=stackptr->next;
-		if(stack_drop(0)==0xFF)break;
+		if(stackptr->id==0xFF) break;
+		if((stackptr=stack_drop(0))==NULL) break;
 	}
 	pthread_mutex_unlock(&mutex[0]);
 		
@@ -196,7 +197,6 @@ void sdl(stack* stackptr){
 void sound(stack* stackptr){
 	int i;
 	char filename[32];
-	unsigned char id;
 
 	if(Mix_OpenAudio(22050, AUDIO_S16, 2, 4096))
 		return;
@@ -215,15 +215,14 @@ void sound(stack* stackptr){
 	while(1){
 		// We can directly receive the id and play it
 		pthread_mutex_lock(&mutex[1]);		
-			id = stack_drop(1);
-		pthread_mutex_unlock(&mutex[1]);
-		
-		if(id != 255){
-			play_sound(id);
-			SDL_Delay(500);
+		stackptr=stack_head(1);
+		if(stackptr->id!=0xFF){
+			play_sound(stackptr->id);
+			stackptr=stack_drop(1);
 		}
-		
-		usleep(50000);
+		pthread_mutex_unlock(&mutex[1]);
+				
+		SDL_Delay(500);
 	}
 }
 

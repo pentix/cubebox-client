@@ -22,7 +22,11 @@
 #ifndef __COM_THREAD_MAIN_H__
 #define __COM_THREAD_MAIN_H__
 
+#include "../../globals.h"
+
+
 extern void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size);
-extern unsigned char stack_drop(unsigned int thread_id);
+extern stack* stack_drop(unsigned int thread_id);
+extern stack* stack_head(unsigned int thread_id);
 
 #endif

@@ -40,12 +40,17 @@ void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned in
 	pthread_mutex_unlock(&mutex[thread_id]);
 }
 
-unsigned char stack_drop(unsigned int thread_id ){
-	void *HEAD;
-	if(thread_stack[thread_id]->id == 0xFF) return 0xFF;
+stack* stack_head(unsigned int thread_id ){
+	return 	thread_stack[thread_id];
+}
+
+
+stack* stack_drop(unsigned int thread_id ){
+	stack *HEAD;
+	if(thread_stack[thread_id]->id == 0xFF) return NULL;
 	HEAD=thread_stack[thread_id]->next;
 	free(thread_stack[thread_id]);
 	thread_stack[thread_id]=HEAD;
-	return (thread_stack[thread_id]->id);
+	return HEAD;
 }
 

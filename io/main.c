@@ -25,13 +25,12 @@
 
 /* Infinite loop to read all inputs */
 void read_inputs(stack* stackptr){
-	int readin_keys[256] = {0};//@params 0=key up; 1=key down
+	char readin_keys[256] = {0};	//@params 0=key up; 1=key down
 
 	while(1){
 		while(SDL_PollEvent(&input_event) == 1){
 			if(input_event.type == SDL_QUIT)
 				halt();
-			
 			
 			if(input_event.type == SDL_KEYDOWN)
 				readin_keys[input_event.key.keysym.sym]=1;
@@ -41,15 +40,18 @@ void read_inputs(stack* stackptr){
 			
 		}
 
-		if(readin_keys[SDLK_ESCAPE]==1){
+		if(readin_keys[SDLK_ESCAPE]){
 			halt();
 		}
 
-		if(readin_keys[SDLK_w]==1){
-			//move player.....
+		if(readin_keys[SDLK_w]){
 			fprintf(stderr, "W");
 		}
 
+		
+		if(readin_keys[SDLK_SPACE]){
+			stack_push(1, SND_JUMP, NULL, 0);
+		}
 		
 	SDL_Delay(50);
 	
