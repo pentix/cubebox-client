@@ -158,7 +158,7 @@ void sdl(stack* stackptr){
 
     //~ SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
-	if(SDL_SetVideoMode(window_width, window_height, color_depth, SDL_SWSURFACE	) == NULL){
+	if(SDL_SetVideoMode(window_width, window_height, color_depth, SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE) == NULL){
 		perror("Could not create window\n");
 		exit(1);
 	}
