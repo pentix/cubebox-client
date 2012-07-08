@@ -165,7 +165,7 @@ void sdl(stack* stackptr){
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
 	    if ( !LoadGLTextures( ) )
-	return 0;
+			return;
 
 
 	glEnable(GL_TEXTURE_2D);
