@@ -34,7 +34,37 @@ void sdl(stack* stackptr){
 		exit(1);
 	}
 	
-	if(SDL_SetVideoMode(800,600, 8, SDL_SWSURFACE) == NULL){
+	int fullscreen, window_width, window_height, color_depth;
+	
+	// Read configuration
+	pthread_mutex_lock(&mutex[0]);
+		switch(stackptr->id){
+		case 0:
+			fullscreen = (int)stackptr->val;
+		break;
+		case 1:
+			window_width = (int)stackptr->val;
+		break;
+		case 2:
+			window_height = (int)stackptr->val;
+		break;
+		case 3:
+			color_depth = (int)stackptr->val;
+		break;
+
+		default:
+		break;
+		}
+	pthread_mutex_unlock(&mutex[0]);
+	
+	Uint32 flags;
+	if(fullscreen == 0){
+		flags = SDL_SWSURFACE;
+	} else {
+		flags = SDL_SWSURFACE | SDL_FULLSCREEN;
+	}
+	
+	if(SDL_SetVideoMode(window_width, window_height, color_depth, flags) == NULL){
 		perror("Could not create window\n");
 		exit(1);
 	}
