@@ -40,7 +40,7 @@ void read_inputs(stack* stackptr){
 				halt();
 			}
 
-			if(readin_keys[SDLK_W]==1){
+			if(readin_keys[SDLK_w]==1){
 				//move player.....
 
 			}
