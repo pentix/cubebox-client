@@ -147,7 +147,6 @@ void sdl(stack* stackptr){
 	pthread_mutex_unlock(&mutex[0]);
 	
 	
-	
 	Uint32 flags;
 	flags = SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE;
 
