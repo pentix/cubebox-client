@@ -29,33 +29,22 @@ void read_inputs(stack* stackptr){
 	int i;
 
 	while(1){
-	while(SDL_PollEvent(&input_event) == 1){
-		if(input_event.type == SDL_KEYDOWN){
-			readin_keys[input_event.key.keysym.sym]=1;
-			/*
-			switch(input_event.key.keysym.sym){			
-			case SDLK_ESCAPE:
-				halt(stack* stackptr);
-				break;
-			default: break;
+		while(SDL_PollEvent(&input_event) == 1){
+			if(input_event.type == SDL_KEYDOWN){
+				readin_keys[input_event.key.keysym.sym]=1;
 			}
-			*/
-		}
-		if(input_event.type==SDL_KEYUP){
-			readin_keys[input_event.key.keysym.sym]=0;
-		}
-		
-		for(i=0; i<256; i++){
-			switch(i*readin_keys[i]){
-				case SDLK_ESCAPE:
-						halt();
-				break; 
-				
-				default:
-				break;
+			if(input_event.type==SDL_KEYUP){
+				readin_keys[input_event.key.keysym.sym]=0;
+			}
+
+			if(readin_keys[SDLK_ESCAPE]==1){
+				halt();
+			}
+
+			if(readin_keys[SDLK_W]==1){
+				//move player.....
 			}
 		}
-	}
 	usleep(50000);
 	}
 }
