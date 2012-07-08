@@ -32,15 +32,8 @@ void read_inputs(stack* stackptr){
 	while(SDL_PollEvent(&input_event) == 1){
 		if(input_event.type == SDL_KEYDOWN){
 			readin_keys[input_event.key.keysym.sym]=1;
-			/*
-			switch(input_event.key.keysym.sym){			
-			case SDLK_ESCAPE:
-				halt(stack* stackptr);
-				break;
-			default: break;
-			}
-			*/
 		}
+		
 		if(input_event.type==SDL_KEYUP){
 			readin_keys[input_event.key.keysym.sym]=0;
 		}
