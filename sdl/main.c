@@ -185,7 +185,7 @@ void sdl(stack* stackptr){
 
 
 	while(1)
-		usleep(50000);
+		SDL_Delay(40);
 }
 
 
@@ -217,7 +217,7 @@ void sound(stack* stackptr){
 		}
 		pthread_mutex_unlock(&mutex[1]);
 				
-		SDL_Delay(500);
+		SDL_Delay(50);
 	}
 }
 
