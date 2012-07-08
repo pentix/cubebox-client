@@ -199,7 +199,7 @@ void sound(stack* stackptr){
 		sprintf(filename, "media/sound/%d.wav", i);
 		sounds[i] = Mix_LoadWAV(filename);
 		
-		printf("Loaded '%s'", filename);
+		printf("Loaded '%s'\n", filename);
 	}
 
 	if(Mix_OpenAudio(42100, AUDIO_S16, 2, 4096))
