@@ -51,6 +51,7 @@ void read_inputs(stack* stackptr){
 		
 		if(readin_keys[SDLK_SPACE]){
 			stack_push(1, SND_JUMP, NULL, 0);
+			SDL_Delay(500);
 		}
 		
 	SDL_Delay(50);
