@@ -29,27 +29,30 @@ void read_inputs(stack* stackptr){
 
 	while(1){
 		while(SDL_PollEvent(&input_event) == 1){
-			if(input_event.type == SDL_QUIT){
+			if(input_event.type == SDL_QUIT)
 				halt();
-			} 
 			
-			if(input_event.type == SDL_KEYDOWN){
+			
+			if(input_event.type == SDL_KEYDOWN)
 				readin_keys[input_event.key.keysym.sym]=1;
-			}
-			if(input_event.type==SDL_KEYUP){
+			
+			if(input_event.type==SDL_KEYUP)
 				readin_keys[input_event.key.keysym.sym]=0;
-			}
-
-			if(readin_keys[SDLK_ESCAPE]==1){
-				halt();
-			}
-
-			if(readin_keys[SDLK_w]==1){
-				//move player.....
-
-			}
+			
 		}
-	usleep(50000);
+
+		if(readin_keys[SDLK_ESCAPE]==1){
+			halt();
+		}
+
+		if(readin_keys[SDLK_w]==1){
+			//move player.....
+			fprintf(stderr, "W");
+		}
+
+		
+	SDL_Delay(50);
+	
 	}
 }
 
