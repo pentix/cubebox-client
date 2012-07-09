@@ -34,5 +34,7 @@ extern void sdl(stack* stackptr);
 extern void sound(stack* stackptr);
 extern void play_sound(unsigned char id);
 
+#define NUMBER_OF_TEXTURES 256
+GLuint textures[1];
 
 #endif

@@ -24,96 +24,39 @@
 #include "main.h"
 
 
-int light = 0; /* Whether or not lighting is on */
-int blend = 0; /* Whether or not blending is on */
-
-GLfloat xrot;      /* X Rotation */
-GLfloat yrot;      /* Y Rotation */
-GLfloat xspeed;    /* X Rotation Speed */
-GLfloat yspeed;    /* Y Rotation Speed */
-GLfloat z = -5.0f; /* Depth Into The Screen */
-
-/* Ambient Light Values ( NEW ) */
-GLfloat LightAmbient[]  = { 0.5f, 0.5f, 0.5f, 1.0f };
-/* Diffuse Light Values ( NEW ) */
-GLfloat LightDiffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
-/* Light Position ( NEW ) */
-GLfloat LightPosition[] = { 0.0f, 0.0f, 2.0f, 1.0f };
-
-GLuint filter;     /* Which Filter To Use */
-GLuint texture[3]; /* Storage for 3 textures */
-
-
-/* function to load in bitmap as a GL texture */
-int LoadGLTextures( )
-{
-    /* Status indicator */
-    int Status = 0;
-
-    /* Create storage space for the texture */
+int LoadGLTextures(){
     SDL_Surface *TextureImage[1]; 
 
-    /* Load The Bitmap, Check For Errors, If Bitmap's Not Found Quit */
-    if ( ( TextureImage[0] = SDL_LoadBMP( "data/glass.bmp" ) ) )
-        {
+    if((TextureImage[0] = SDL_LoadBMP("media/images/textures/texturemap.bmp"))){
+		glGenTextures(1, textures);
 
-	    /* Set the status to 1 */
-	    Status = 1;
+		glBindTexture(GL_TEXTURE_2D,textures[0]);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	    /* Create The Texture */
-	    glGenTextures( 3, &texture[0] );
+		glTexImage2D(GL_TEXTURE_2D,0,3,TextureImage[0]->w,
+			TextureImage[0]->h,0,GL_BGR,
+			GL_UNSIGNED_BYTE,TextureImage[0]->pixels);
 
-	    /* Load in texture 1 */
-	    /* Typical Texture Generation Using Data From The Bitmap */
-	    glBindTexture( GL_TEXTURE_2D, texture[0] );
+		if ( TextureImage[0] )
+			SDL_FreeSurface( TextureImage[0] );
+	}
+	
+	return 1;
+}
 
-	    /* Generate The Texture */
-	    glTexImage2D( GL_TEXTURE_2D, 0, 3, TextureImage[0]->w,
-			  TextureImage[0]->h, 0, GL_BGR,
-			  GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
-	    
-	    /* Nearest Filtering */
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-			     GL_NEAREST );
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-			     GL_NEAREST );
+void init_cube(void){
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	glTranslatef(0.0f,0.0f,-5.0f);
+	glBindTexture(GL_TEXTURE_2D, textures[0]); 
 
-	    /* Load in texture 2 */
-	    /* Typical Texture Generation Using Data From The Bitmap */
-	    glBindTexture( GL_TEXTURE_2D, texture[1] );
-
-	    /* Linear Filtering */
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-			     GL_LINEAR );
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-			     GL_LINEAR );
-
-	    /* Generate The Texture */
-	    glTexImage2D( GL_TEXTURE_2D, 0, 3, TextureImage[0]->w,
-			  TextureImage[0]->h, 0, GL_BGR,
-			  GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
-
-	    /* Load in texture 3 */
-	    /* Typical Texture Generation Using Data From The Bitmap */
-	    glBindTexture( GL_TEXTURE_2D, texture[2] );
-
-	    /* Mipmapped Filtering */
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-			     GL_LINEAR_MIPMAP_NEAREST );
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-			     GL_LINEAR );
-
-	    /* Generate The MipMapped Texture ( NEW ) */
-	    gluBuild2DMipmaps( GL_TEXTURE_2D, 3, TextureImage[0]->w,
-			       TextureImage[0]->h, GL_BGR,
-			       GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
-        }
-
-    /* Free up any memory we may have used */
-    if ( TextureImage[0] )
-	    SDL_FreeSurface( TextureImage[0] );
-
-    return Status;
+	glBegin(GL_QUADS);
+		glTexCoord2f(0.0f,1.0f/16); glVertex3f( -1.0f,-1.0f, 1.0f);		// front, unten links
+		glTexCoord2f(1.0f/16, 1.0f/16); glVertex3f(1.0f,-1.0f, 1.0f);	// front, unten rechts
+		glTexCoord2f(1.0f/16,0.0f); glVertex3f(1.0f, 1.0f, 1.0f);  		// front, oben rechts
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, 1.0f,  1.0f);		// front, oben links
+	glEnd();
 }
 
 void play_sound(unsigned char id){
@@ -148,11 +91,12 @@ void sdl(stack* stackptr){
 	
 	
 	Uint32 flags;
-	flags = SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE;
+	flags = SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE | SDL_HWACCEL;
 
 	if(fullscreen == 1)
 		flags |= SDL_FULLSCREEN;
 
+	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
 	if(SDL_SetVideoMode(window_width, window_height, color_depth, flags) == NULL){
 		perror("Could not create window\n");
@@ -162,27 +106,29 @@ void sdl(stack* stackptr){
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
-	    if ( !LoadGLTextures( ) )
-			return;
-
+	LoadGLTextures();
 
 	glEnable(GL_TEXTURE_2D);
 	glShadeModel(GL_SMOOTH);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(0.2f, 0.2f, 1.0f, 1.0f);
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	
+	//~ glColor4f( 1.0f, 1.0f, 1.0f, 0.5f);
+	//~ glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
-	glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmbient);
-    glLightfv( GL_LIGHT1, GL_DIFFUSE, LightDiffuse );
-    glLightfv( GL_LIGHT1, GL_POSITION, LightPosition );
-    glEnable( GL_LIGHT1 );
+	glViewport(0, 0, (GLint)window_width, (GLint)window_height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0f, (float)window_width/(float)window_height, 0.1f, 100.0f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();	
 
-    /* Full Brightness, 50% Alpha ( NEW ) */
-    glColor4f( 1.0f, 1.0f, 1.0f, 0.5f);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	init_cube();
 
+	SDL_GL_SwapBuffers();
 
 	while(1)
 		SDL_Delay(40);
@@ -206,7 +152,7 @@ void sound(stack* stackptr){
 		
 		printf("Loaded '%s'\n", filename);
 	}
-
+	//~ return;
 	while(1){
 		// We can directly receive the id and play it
 		pthread_mutex_lock(&mutex[1]);		
