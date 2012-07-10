@@ -42,18 +42,12 @@ int LoadGLTextures(){
 			SDL_FreeSurface(TextureImage[0]);
 	}
 	
-	return 1;
-}
-
-void draw_cube(float x, float y, float z){
-	static int i;
-	i++;
+	// And now, build a displaylist
+	displaylist = glGenLists(1);
 	
-	glRotatef(i, 1.0f, 1.0f, 1.0f);
-	glTranslatef(-x, -y, -z);
-
 	glBindTexture(GL_TEXTURE_2D, textures[0]); 
-
+	
+	glNewList(displaylist, GL_COMPILE);
 	glBegin(GL_QUADS);                                                     
 		glTexCoord2f(0.0f, 1.0f/16); 		glVertex3f((-0.5f), (-0.5f), (0.5f));		
 		glTexCoord2f(1.0f/16, 1.0f/16);		glVertex3f((0.5f),  (-0.5f), (0.5f));	
@@ -84,7 +78,22 @@ void draw_cube(float x, float y, float z){
 		glTexCoord2f(1.0f/16, 1.0f/16);		glVertex3f((0.5f),  (-0.5f), (-0.5f));
 		glTexCoord2f(1.0f/16, 0.0f);		glVertex3f((0.5f),  (-0.5f), (0.5f));  	
 		glTexCoord2f(0.0f, 0.0f);			glVertex3f((-0.5f), (-0.5f), (0.5f));		
-	glEnd();                                                             
+	glEnd();  
+	glEndList();                                                           
+
+	
+	return 1;
+}
+
+void draw_cube(float x, float y, float z){
+	static int i;
+	i++;
+	
+	glRotatef(i, 1.0f, 1.0f, 1.0f);
+	glTranslatef(-x, -y, -z);
+
+	glCallList(displaylist);
+
 }
 
 void play_sound(unsigned char id){
