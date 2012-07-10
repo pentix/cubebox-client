@@ -61,7 +61,7 @@ void read_inputs(stack* stackptr){
 		if(readin_keys[SDLK_SPACE]){
 			pthread_mutex_lock(&mutex[1]);
 				stack_push(1, SND_JUMP, NULL, 0);
-			pthread_mutex_lock(&mutex[1]);
+			pthread_mutex_unlock(&mutex[1]);
 			SDL_Delay(500);
 		}
 		
