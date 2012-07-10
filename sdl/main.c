@@ -92,7 +92,7 @@ void play_sound(unsigned char id){
 }
 
 void sdl(stack* stackptr){
-	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0){
+	if(SDL_Init(SDL_INIT_VIDEO) != 0){
 		perror("Could not initialize screen!\n");
 		exit(1);
 	}
@@ -175,6 +175,11 @@ void sdl(stack* stackptr){
 void sound(stack* stackptr){
 	int i;
 	char filename[32];
+	
+	if(SDL_Init(SDL_INIT_AUDIO) != 0){
+		perror("Could not initialize audio!\n");
+		exit(1);
+	}
 
 	if(Mix_OpenAudio(22050, AUDIO_S16, 2, 4096))
 		return;
