@@ -36,6 +36,6 @@ extern void play_sound(unsigned char id);
 
 #define NUMBER_OF_TEXTURES 256
 GLuint textures[1];
-GLuint displaylist;
+GLuint displaylists;
 
 #endif
