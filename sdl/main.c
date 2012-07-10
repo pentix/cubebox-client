@@ -172,7 +172,9 @@ void sdl(stack* stackptr){
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
+	// Grab and hide cursor
 	SDL_WM_GrabInput(SDL_GRAB_ON);
+	SDL_ShowCursor(SDL_DISABLE);	
 	
 	// Set Rotation to 0
 	xrot=0;
