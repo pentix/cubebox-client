@@ -68,7 +68,8 @@ int LoadGLTextures(){
 																		   
 			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
 				glVertex3f((-0.5f), (-0.5f), (0.5f));	
-			glTexCoord2f(0.0f,1.0f/16);			glVertex3f((-0.5f), (-0.5f), (-0.5f));	
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+1.0f/16.0f);
+				glVertex3f((-0.5f), (-0.5f), (-0.5f));	
 			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
 				glVertex3f((-0.5f), (0.5f),  (-0.5f));		
 			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
@@ -118,7 +119,7 @@ int LoadGLTextures(){
 void draw_cube(float x, float y, float z, int type){
 	glRotatef(-xrot, 1.0f, 0.0f, 0.0f);
 	glRotatef(-zrot, 0.0f, 0.0f, 1.0f);
-	
+		
 	glTranslatef(-x, -y, -z);
 	glCallList(displaylists+type);
 }
@@ -217,12 +218,12 @@ void sdl(stack* stackptr){
 		glLoadIdentity();
 		glTranslatef(0.0f, 0.0f, -5.0f);
 		
-		draw_cube(0, 0, 0, 16);
+		draw_cube(0, 0, 0, 1);
 		
 		glLoadIdentity();
 		glTranslatef(0.0f, 0.0f, -5.0f);
 		
-		draw_cube(1, 0, 0, 1);
+		draw_cube(1, 0, 0, 0);
 
 		glLoadIdentity();
 		glTranslatef(0.0f, 0.0f, -5.0f);
