@@ -171,6 +171,8 @@ void sdl(stack* stackptr){
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
+	SDL_WM_GrabInput(SDL_GRAB_ON);
+	
 	// Set Rotation to 0
 	xrot=0;
 	zrot=0;
