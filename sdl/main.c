@@ -195,13 +195,16 @@ void sdl(stack* stackptr){
 
 		pthread_mutex_lock(&mutex[0]);
 			stackptr=stack_head(0);
-			if((stackptr != NULL)&&(stackptr->id!=0xFF)){
-				
-					if(stackptr->id==7){
-						xrot = *((float*)stackptr->val);
-					} else if(stackptr->id==8){
-						zrot = *((float*)stackptr->val);
-					}
+			while((stackptr != NULL)&&(stackptr->id!=0xFF)){
+				switch(stackptr->id){
+					case 7:
+						zrot += *((float*)stackptr->val);
+					break;
+					case 8:
+						xrot += *((float*)stackptr->val);
+					break;
+				}
+				stackptr=stack_drop(0);
 			}
 		pthread_mutex_unlock(&mutex[0]);
 		
