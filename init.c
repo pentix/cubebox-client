@@ -28,23 +28,26 @@ void config(void){
 	
 	// Graphic configuration
 	char *check;
-	int val;
+	int val[4];
 
 	// window-width
-	val=atoi(((check=search_for_key("window-width", 1))!=NULL)?check:"0");
-	stack_push(0, 1, &val, sizeof(int));
-	
+	val[0]=atoi(((check=search_for_key("window-width", 1))!=NULL)?check:"0");
+		
 	// window-height
-	val=atoi(((check=search_for_key("window-height", 1))!=NULL)?check:"0");
-	stack_push(0, 2, &val, sizeof(int));
+	val[1]=atoi(((check=search_for_key("window-height", 1))!=NULL)?check:"0");
 	
 	// color-depth
-	val=atoi(((check=search_for_key("color-depth", 1))!=NULL)?check:"0");
-	stack_push(0, 3, &val, sizeof(int));
+	val[2]=atoi(((check=search_for_key("color-depth", 1))!=NULL)?check:"0");
 	
 	// fullscreen
-	val=atoi(((check=search_for_key("fullscreen", 1))!=NULL)?check:"0");
-	stack_push(0, 0, &val, sizeof(int));
+	val[3]=atoi(((check=search_for_key("fullscreen", 1))!=NULL)?check:"0");
+
+	pthread_mutex_lock(&mutex[0]);
+		stack_push(0, 1, &val[0], sizeof(int));
+		stack_push(0, 2, &val[1], sizeof(int));
+		stack_push(0, 3, &val[2], sizeof(int));
+		stack_push(0, 0, &val[3], sizeof(int));
+	pthread_mutex_unlock(&mutex[0]);
 	
 	search_destroy();
 }

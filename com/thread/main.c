@@ -25,17 +25,16 @@
 
 void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size){
 	void *HEAD;
-	pthread_mutex_lock(&mutex[thread_id]);
-		HEAD=thread_stack[thread_id];
-		falloc(thread_stack[thread_id], sizeof(stack));
-		thread_stack[thread_id]->next=HEAD;
-		thread_stack[thread_id]->id=id;
-		
-		if(val != NULL && val_size != 0){
-			falloc(thread_stack[thread_id]->val,val_size);
-			memcpy(thread_stack[thread_id]->val, val, val_size);
-		}
-	pthread_mutex_unlock(&mutex[thread_id]);
+
+	HEAD=thread_stack[thread_id];
+	falloc(thread_stack[thread_id], sizeof(stack));
+	thread_stack[thread_id]->next=HEAD;
+	thread_stack[thread_id]->id=id;
+	
+	if(val != NULL && val_size != 0){
+		falloc(thread_stack[thread_id]->val,val_size);
+		memcpy(thread_stack[thread_id]->val, val, val_size);
+	}
 }
 
 stack* stack_head(unsigned int thread_id ){

@@ -23,10 +23,11 @@
 #ifndef __IO_MAIN_H__
 #define __IO_MAIN_H__
 
-// Double include?
 #include "../globals.h"
 SDL_Event input_event;
 
 extern void io(stack* stackptr);
+
+#define MOUSE_SENSITIVITY 0.5
 
 #endif

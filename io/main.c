@@ -38,6 +38,15 @@ void read_inputs(stack* stackptr){
 			if(input_event.type==SDL_KEYUP)
 				readin_keys[input_event.key.keysym.sym]=0;
 			
+			if(input_event.type==SDL_MOUSEMOTION){
+				float xrel = input_event.motion.xrel*MOUSE_SENSITIVITY;
+				float zrel = input_event.motion.yrel*MOUSE_SENSITIVITY;
+				
+				pthread_mutex_lock(&mutex[0]);
+					stack_push(0, 7, (void *)&xrel, sizeof(float));
+					stack_push(0, 8, (void *)&zrel, sizeof(float));
+				pthread_mutex_unlock(&mutex[0]);
+			}
 		}
 
 		if(readin_keys[SDLK_ESCAPE]){
@@ -50,7 +59,9 @@ void read_inputs(stack* stackptr){
 
 		
 		if(readin_keys[SDLK_SPACE]){
-			stack_push(1, SND_JUMP, NULL, 0);
+			pthread_mutex_lock(&mutex[1]);
+				stack_push(1, SND_JUMP, NULL, 0);
+			pthread_mutex_lock(&mutex[1]);
 			SDL_Delay(500);
 		}
 		

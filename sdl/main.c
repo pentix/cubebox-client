@@ -93,14 +93,11 @@ int LoadGLTextures(){
 }
 
 void draw_cube(float x, float y, float z){
-	static int i;
-	i++;
+	glRotatef(-xrot, 1.0f, 0.0f, 0.0f);
+	glRotatef(-zrot, 0.0f, 0.0f, 1.0f);
 	
-	glRotatef(i, 1.0f, 1.0f, 1.0f);
 	glTranslatef(-x, -y, -z);
-
 	glCallList(displaylists);
-
 }
 
 void play_sound(unsigned char id){
@@ -117,20 +114,21 @@ void sdl(stack* stackptr){
 	
 	// Read configuration
 	pthread_mutex_lock(&mutex[0]);
-	stackptr=stack_head(0);
-	while(1){
-		if(stackptr->id==0)
-			fullscreen = *((int*)stackptr->val);
-		if(stackptr->id==1)
-			window_width = *((int*)stackptr->val);
-		if(stackptr->id==2)
-			window_height = *((int*)stackptr->val);
-		if(stackptr->id==3)
-			color_depth = *((int*)stackptr->val);
+		stackptr=stack_head(0);
+		while(1){
+			if(stackptr->id==0)
+				fullscreen = *((int*)stackptr->val);
+			if(stackptr->id==1)
+				window_width = *((int*)stackptr->val);
+			if(stackptr->id==2)
+				window_height = *((int*)stackptr->val);
+			if(stackptr->id==3)
+				color_depth = *((int*)stackptr->val);
 
-		if(stackptr->id==0xFF) break;
-		if((stackptr=stack_drop(0))==NULL) break;
-	}
+			if(stackptr->id==0xFF) break;
+			if((stackptr=stack_drop(0))==NULL) break;
+			
+		}
 	pthread_mutex_unlock(&mutex[0]);
 	
 	
@@ -141,7 +139,7 @@ void sdl(stack* stackptr){
 		flags |= SDL_FULLSCREEN;
 
 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-
+	
 	if(SDL_SetVideoMode(window_width, window_height, color_depth, flags) == NULL){
 		perror("Could not create window\n");
 		exit(1);
@@ -149,6 +147,10 @@ void sdl(stack* stackptr){
 	
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
+	
+	// Set Rotation to 0
+	xrot=0;
+	zrot=0;
 	
 	LoadGLTextures();
 
@@ -170,6 +172,19 @@ void sdl(stack* stackptr){
 	glMatrixMode(GL_MODELVIEW);
 
 	while(1){
+
+		pthread_mutex_lock(&mutex[0]);
+			stackptr=stack_head(0);
+			if((stackptr != NULL)&&(stackptr->id!=0xFF)){
+				
+					if(stackptr->id==7){
+						xrot = *((float*)stackptr->val);
+					} else if(stackptr->id==8){
+						zrot = *((float*)stackptr->val);
+					}
+			}
+		pthread_mutex_unlock(&mutex[0]);
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		glTranslatef(0.0f, 0.0f, -5.0f);

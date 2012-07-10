@@ -38,4 +38,6 @@ extern void play_sound(unsigned char id);
 GLuint textures[1];
 GLuint displaylists;
 
+float xrot, zrot; 
+
 #endif
