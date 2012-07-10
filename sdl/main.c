@@ -48,7 +48,10 @@ int LoadGLTextures(){
 	displaylists = glGenLists(NUMBER_OF_TEXTURES);
 	
 	for(i=0;i<NUMBER_OF_TEXTURES;i++){
-		printf("Binding Texture %i\n", i);
+		#ifdef DEBUG
+			printf("Binding Texture %i\n", i);
+		#endif
+		
 		glBindTexture(GL_TEXTURE_2D, textures[0]); 
 
 		glNewList(displaylists+i, GL_COMPILE);
@@ -247,7 +250,9 @@ void sound(stack* stackptr){
 			halt();
 		}
 		
-		printf("Loaded '%s'\n", filename);
+		#ifdef DEBUG
+			printf("Loaded '%s'\n", filename);
+		#endif
 	}
 	//~ return;
 	while(1){

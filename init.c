@@ -105,7 +105,10 @@ void init(void){
 	signal(SIGABRT, NULL);
 	
 	config();
-	printf("Read configuration successfully!\n");
+	
+	#ifdef DEBUG
+		printf("Read configuration successfully!\n");
+	#endif
 	
 	
 	pthread_create(&thread[0], NULL, init_sdl, (void *)thread_stack[0]);
