@@ -25,7 +25,7 @@
 
 
 int LoadGLTextures(){
-	unsigned char i;
+	unsigned int i;
 	
     SDL_Surface *TextureImage[1]; 
 
@@ -44,60 +44,80 @@ int LoadGLTextures(){
 			SDL_FreeSurface(TextureImage[0]);
 	}
 	
-	
-	
-	// And now, build a displaylist
-	displaylists = glGenLists(256);
-	
-	glBindTexture(GL_TEXTURE_2D, textures[0]); 
-	
-	// Load every texture 1 time
-	// into a new list.
-	
-	glNewList(displaylists, GL_COMPILE);
-	glBegin(GL_QUADS);                                                     
-		glTexCoord2f(0.0f, 1.0f/16); 		glVertex3f((-0.5f), (-0.5f), (0.5f));		
-		glTexCoord2f(1.0f/16, 1.0f/16);		glVertex3f((0.5f),  (-0.5f), (0.5f));	
-		glTexCoord2f(1.0f/16, 0.0f);		glVertex3f((0.5f),  (0.5f),  (0.5f));  	
-		glTexCoord2f(0.0f, 0.0f);			glVertex3f((-0.5f), (0.5f),  (0.5f));		
-		                                                               
-		glTexCoord2f(1.0f/16, 1.0f/16);		glVertex3f((-0.5f), (-0.5f), (0.5f));	
-		glTexCoord2f(0.0f,1.0f/16);			glVertex3f((-0.5f), (-0.5f), (-0.5f));	
-		glTexCoord2f(0.0f, 0.0f);			glVertex3f((-0.5f), (0.5f),  (-0.5f));		
-		glTexCoord2f(1.0f/16, 0.0);			glVertex3f((-0.5f), (0.5f),  (0.5f));		
-		                                                               
-		glTexCoord2f(1.0f/16, 1.0f/16);		glVertex3f((-0.5f), (-0.5f), (-0.5f));
-		glTexCoord2f(0.0f, 1.0f/16);		glVertex3f((0.5f),  (-0.5f), (-0.5f));	
-		glTexCoord2f(0.0f, 0.0f);			glVertex3f((0.5f),  (0.5f),  (-0.5f));  		
-		glTexCoord2f(1.0f/16, 0.0f);		glVertex3f((-0.5f), (0.5f),  (-0.5f));	
-		                                                               
-		glTexCoord2f(0.0f, 1.0f/16);		glVertex3f((0.5f),  (-0.5f), (0.5f));		
-		glTexCoord2f(1.0f/16, 1.0f/16);		glVertex3f((0.5f),  (-0.5f), (-0.5f));	
-		glTexCoord2f(1.0f/16, 0.0f);		glVertex3f((0.5f),  (0.5f),  (-0.5f));		
-		glTexCoord2f(0.0f, 0.0);			glVertex3f((0.5f),  (0.5f),  (0.5f));			
-		                                                               
-		glTexCoord2f(1.0f/16, 1.0f/16);		glVertex3f((-0.5f), (0.5f),  (-0.5f));
-		glTexCoord2f(0.0f, 1.0f/16);		glVertex3f((0.5f),  (0.5f),  (-0.5f));		
-		glTexCoord2f(0.0f, 0.0f);			glVertex3f((0.5f),  (0.5f),  (0.5f));  	
-		glTexCoord2f(1.0f/16, 0.0f);		glVertex3f((-0.5f), (0.5f),  (0.5f));	
-		                                                               
-		glTexCoord2f(0.0f, 1.0f/16);		glVertex3f((-0.5f), (-0.5f), (-0.5f));	
-		glTexCoord2f(1.0f/16, 1.0f/16);		glVertex3f((0.5f),  (-0.5f), (-0.5f));
-		glTexCoord2f(1.0f/16, 0.0f);		glVertex3f((0.5f),  (-0.5f), (0.5f));  	
-		glTexCoord2f(0.0f, 0.0f);			glVertex3f((-0.5f), (-0.5f), (0.5f));		
-	glEnd();  
-	glEndList();                                                           
 
+	displaylists = glGenLists(NUMBER_OF_TEXTURES);
 	
+	for(i=0;i<NUMBER_OF_TEXTURES;i++){
+		printf("Binding Texture %i\n", i);
+		glBindTexture(GL_TEXTURE_2D, textures[0]); 
+
+		glNewList(displaylists+i, GL_COMPILE);
+
+		glBegin(GL_QUADS);                                                     
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((-0.5f), (-0.5f), (0.5f));
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((0.5f),  (-0.5f), (0.5f));
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((0.5f),  (0.5f),  (0.5f));
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((-0.5f), (0.5f),  (0.5f));		
+																		   
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((-0.5f), (-0.5f), (0.5f));	
+			glTexCoord2f(0.0f,1.0f/16);			glVertex3f((-0.5f), (-0.5f), (-0.5f));	
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((-0.5f), (0.5f),  (-0.5f));		
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((-0.5f), (0.5f),  (0.5f));		
+																		   
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((-0.5f), (-0.5f), (-0.5f));
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((0.5f),  (-0.5f), (-0.5f));	
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((0.5f),  (0.5f),  (-0.5f));  		
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((-0.5f), (0.5f),  (-0.5f));	
+																		   
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((0.5f),  (-0.5f), (0.5f));		
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((0.5f),  (-0.5f), (-0.5f));	
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((0.5f),  (0.5f),  (-0.5f));		
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((0.5f),  (0.5f),  (0.5f));			
+																		   
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((-0.5f), (0.5f),  (-0.5f));
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((0.5f),  (0.5f),  (-0.5f));		
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((0.5f),  (0.5f),  (0.5f));  	
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((-0.5f), (0.5f),  (0.5f));	
+																		   
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((-0.5f), (-0.5f), (-0.5f));	
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
+				glVertex3f((0.5f),  (-0.5f), (-0.5f));
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((0.5f),  (-0.5f), (0.5f));  	
+			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
+				glVertex3f((-0.5f), (-0.5f), (0.5f));		
+		glEnd();  
+		glEndList();                                                           
+	}
 	return 1;
 }
 
-void draw_cube(float x, float y, float z){
+void draw_cube(float x, float y, float z, int type){
 	glRotatef(-xrot, 1.0f, 0.0f, 0.0f);
 	glRotatef(-zrot, 0.0f, 0.0f, 1.0f);
 	
 	glTranslatef(-x, -y, -z);
-	glCallList(displaylists);
+	glCallList(displaylists+type);
 }
 
 void play_sound(unsigned char id){
@@ -189,12 +209,17 @@ void sdl(stack* stackptr){
 		glLoadIdentity();
 		glTranslatef(0.0f, 0.0f, -5.0f);
 		
-		draw_cube(0, 0, 0);
+		draw_cube(0, 0, 0, 16);
 		
 		glLoadIdentity();
 		glTranslatef(0.0f, 0.0f, -5.0f);
 		
-		draw_cube(1, 0, 0);
+		draw_cube(1, 0, 0, 1);
+
+		glLoadIdentity();
+		glTranslatef(0.0f, 0.0f, -5.0f);
+		
+		draw_cube(1, 1, 0, 2);
 
 		SDL_GL_SwapBuffers();
 		SDL_Delay(40);
