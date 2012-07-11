@@ -25,4 +25,7 @@
 
 extern void map(stack* stackptr);
 
+// All the blocks are saved in this huge 3d array
+unsigned short world[512][512][512];
+
 #endif

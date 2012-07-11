@@ -199,6 +199,9 @@ void sdl(stack* stackptr){
 	gluPerspective(45.0f, (float)window_width/(float)window_height, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
 
+	
+	long *longptr;
+
 	while(1){
 
 		pthread_mutex_lock(&mutex[0]);
@@ -206,10 +209,19 @@ void sdl(stack* stackptr){
 			while((stackptr != NULL)&&(stackptr->id!=0xFF)){
 				switch(stackptr->id){
 					case 7:
-						zrot += *((float*)stackptr->val);
+						zrot += *((long*)stackptr->val);
 					break;
 					case 8:
-						xrot += *((float*)stackptr->val);
+						xrot += *((long*)stackptr->val);
+					break;
+					case 11:
+						longptr = ((long *)stackptr->val);
+
+						glLoadIdentity();
+						glTranslatef(0.0f, 0.0f, -5.0f);
+						draw_cube(*(longptr), *(longptr+1), *(longptr+2), (short)(*(longptr+3)));
+
+						free(longptr);
 					break;
 				}
 				stackptr=stack_drop(0);
@@ -217,21 +229,10 @@ void sdl(stack* stackptr){
 		pthread_mutex_unlock(&mutex[0]);
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-		glTranslatef(0.0f, 0.0f, -5.0f);
-		
-		draw_cube(0, 0, 0, 1);
-		
-		glLoadIdentity();
-		glTranslatef(0.0f, 0.0f, -5.0f);
-		
-		draw_cube(1, 0, 0, 0);
 
-		glLoadIdentity();
-		glTranslatef(0.0f, 0.0f, -5.0f);
-		
-		draw_cube(1, 1, 0, 2);
-
+			glLoadIdentity();
+			glTranslatef(0.0f, 0.0f, -5.0f);
+			draw_cube(0, 0, 0, 1);
 		SDL_GL_SwapBuffers();
 		SDL_Delay(40);
 	}

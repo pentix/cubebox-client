@@ -116,6 +116,7 @@ void init(void){
 	pthread_create(&thread[2], NULL, init_map, (void *)thread_stack[2]);
 	pthread_create(&thread[3], NULL, init_com, (void *)thread_stack[3]);
 	pthread_create(&thread[4], NULL, init_io, (void *)thread_stack[4]);
+
 }
 
 
