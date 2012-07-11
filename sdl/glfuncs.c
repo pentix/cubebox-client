@@ -121,7 +121,9 @@ void draw_cube(float x, float y, float z, int type){
 	glRotatef(-xrot, 1.0f, 0.0f, 0.0f);
 	glRotatef(-zrot, 0.0f, 0.0f, 1.0f);
 	
-	printf("x: %f z: %f\n", xrot, zrot);
+	#ifdef DEBUG
+		printf("x: %f z: %f\n", xrot, zrot);
+	#endif	
 		
 	glTranslatef(-x, -y, -z);
 	glCallList(displaylists+type);
