@@ -77,7 +77,7 @@ void sdl(stack* stackptr){
 	
 	// Grab and hide cursor
 	SDL_WM_GrabInput(SDL_GRAB_ON);
-	SDL_ShowCursor(SDL_DISABLE);	
+	SDL_ShowCursor(SDL_DISABLE);
 	
 	// Set Rotation to 0
 	xrot=0;
@@ -112,10 +112,10 @@ void sdl(stack* stackptr){
 			while((stackptr != NULL)&&(stackptr->id!=0xFF)){
 				switch(stackptr->id){
 					case 7:
-						zrot += *((long*)stackptr->val);
+						zrot += *((float*)stackptr->val);
 					break;
 					case 8:
-						xrot += *((long*)stackptr->val);
+						xrot += *((float*)stackptr->val);
 					break;
 					case 11:
 						longptr = ((long *)stackptr->val);

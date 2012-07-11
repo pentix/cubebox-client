@@ -46,6 +46,7 @@ void read_inputs(stack* stackptr){
 					stack_push(0, 7, (void *)&xrel, sizeof(float));
 					stack_push(0, 8, (void *)&zrel, sizeof(float));
 				pthread_mutex_unlock(&mutex[0]);
+				printf("Xrel: %f Zrel: %f\n", xrel, zrel);
 			}
 		}
 
