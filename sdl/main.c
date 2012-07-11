@@ -23,112 +23,20 @@
 #include "../globals.h"
 #include "main.h"
 
-
-int LoadGLTextures(){
-	unsigned int i;
-	
-    SDL_Surface *TextureImage[1]; 
-
-    if((TextureImage[0] = SDL_LoadBMP("media/images/textures/texturemap.bmp"))){
-		glGenTextures(1, textures);
-
-		glBindTexture(GL_TEXTURE_2D,textures[0]);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glTexImage2D(GL_TEXTURE_2D,0,3,TextureImage[0]->w,
-			TextureImage[0]->h,0,GL_BGR,
-			GL_UNSIGNED_BYTE,TextureImage[0]->pixels);
-
-		if(TextureImage[0])
-			SDL_FreeSurface(TextureImage[0]);
-	}
-	
-
-	displaylists = glGenLists(NUMBER_OF_TEXTURES);
-	
-	for(i=0;i<NUMBER_OF_TEXTURES;i++){
-		#ifdef DEBUG
-			printf("Binding Texture %i\n", i);
-		#endif
-		
-		glBindTexture(GL_TEXTURE_2D, textures[0]); 
-
-		glNewList(displaylists+i, GL_COMPILE);
-
-		glBegin(GL_QUADS);                                                     
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((-0.5f), (-0.5f), (0.5f));
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((0.5f),  (-0.5f), (0.5f));
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((0.5f),  (0.5f),  (0.5f));
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((-0.5f), (0.5f),  (0.5f));		
-																		   
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((-0.5f), (-0.5f), (0.5f));	
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+1.0f/16.0f);
-				glVertex3f((-0.5f), (-0.5f), (-0.5f));	
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((-0.5f), (0.5f),  (-0.5f));		
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((-0.5f), (0.5f),  (0.5f));		
-																		   
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((-0.5f), (-0.5f), (-0.5f));
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((0.5f),  (-0.5f), (-0.5f));	
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((0.5f),  (0.5f),  (-0.5f));  		
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((-0.5f), (0.5f),  (-0.5f));	
-																		   
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((0.5f),  (-0.5f), (0.5f));		
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((0.5f),  (-0.5f), (-0.5f));	
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((0.5f),  (0.5f),  (-0.5f));		
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((0.5f),  (0.5f),  (0.5f));			
-																		   
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((-0.5f), (0.5f),  (-0.5f));
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((0.5f),  (0.5f),  (-0.5f));		
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((0.5f),  (0.5f),  (0.5f));  	
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((-0.5f), (0.5f),  (0.5f));	
-																		   
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((-0.5f), (-0.5f), (-0.5f));	
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f)+(1.0f/16.0f));
-				glVertex3f((0.5f),  (-0.5f), (-0.5f));
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f)+(1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((0.5f),  (-0.5f), (0.5f));  	
-			glTexCoord2f(((float)((int)i%16)*1.0f/16.0f), ((float)((int)i/16)*1.0f/16.0f));
-				glVertex3f((-0.5f), (-0.5f), (0.5f));		
-		glEnd();  
-		glEndList();                                                           
-	}
-	return 1;
-}
-
-void draw_cube(float x, float y, float z, int type){
-	glRotatef(-xrot, 1.0f, 0.0f, 0.0f);
-	glRotatef(-zrot, 0.0f, 0.0f, 1.0f);
-		
-	glTranslatef(-x, -y, -z);
-	glCallList(displaylists+type);
-}
+#ifndef WIN
+#include <X11/Xlib.h>
+#endif
 
 void play_sound(unsigned char id){
 	Mix_PlayChannel(-1, sounds[id], 0);	
 }
 
 void sdl(stack* stackptr){
+
+	#ifndef WIN
+		XInitThreads();
+	#endif
+	
 	if(SDL_Init(SDL_INIT_VIDEO) != 0){
 		perror("Could not initialize screen!\n");
 		exit(1);
@@ -148,27 +56,22 @@ void sdl(stack* stackptr){
 				window_height = *((int*)stackptr->val);
 			if(stackptr->id==3)
 				color_depth = *((int*)stackptr->val);
-
 			if(stackptr->id==0xFF) break;
 			if((stackptr=stack_drop(0))==NULL) break;
-			
 		}
 	pthread_mutex_unlock(&mutex[0]);
 	
 	
 	Uint32 flags;
-	flags = SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE | SDL_HWACCEL;
-
-	if(fullscreen == 1)
-		flags |= SDL_FULLSCREEN;
-
-	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+	flags = SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWSURFACE | SDL_HWACCEL | (!!fullscreen)*SDL_FULLSCREEN;
 	
+	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+
 	if(SDL_SetVideoMode(window_width, window_height, color_depth, flags) == NULL){
 		perror("Could not create window\n");
 		exit(1);
 	}
-	
+
 	// Set window caption
 	SDL_WM_SetCaption("Cubebox", "Cubebox");
 	
@@ -183,12 +86,12 @@ void sdl(stack* stackptr){
 	LoadGLTextures();
 
 	glEnable(GL_TEXTURE_2D);
-	glShadeModel(GL_SMOOTH);
-	glClearColor(0.2f, 0.2f, 1.0f, 1.0f);
-	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
+	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glClearColor(0.2f, 0.2f, 1.0f, 1.0f);
+	glClearDepth(1.0f);
 	
 	//~ glColor4f( 1.0f, 1.0f, 1.0f, 0.5f);
 	//~ glBlendFunc(GL_SRC_ALPHA, GL_ONE);
