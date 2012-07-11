@@ -49,7 +49,7 @@ void fill_chunk(float x, float y, float z){
 }
 
 void generate_map(void){
-	
+
 }
 
 void map(stack* stackptr){

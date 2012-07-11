@@ -33,8 +33,8 @@ int LoadGLTextures(){
 		glGenTextures(1, textures);
 
 		glBindTexture(GL_TEXTURE_2D,textures[0]);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		glTexImage2D(GL_TEXTURE_2D,0,3,TextureImage[0]->w,
 			TextureImage[0]->h,0,GL_BGR,
@@ -113,20 +113,84 @@ int LoadGLTextures(){
 		glEnd();  
 		glEndList();                                                           
 	}
+	
+	
+	
+	long x, y, z;
+	
+	glLoadIdentity();
+	ground = glGenLists(1);
+	glNewList(ground, GL_COMPILE);
+		for(x=0; x<16; x++){
+			for(y=0; y<16; y++){
+				for(z=0; z<16; z++){
+					draw_cube(x, y, z, y%2);
+				}
+			}
+		}
+	glEndList();
+		
 	return 1;
 }
 
 
 void draw_cube(float x, float y, float z, int type){
-	glRotatef(-xrot, 1.0f, 0.0f, 0.0f);
-	glRotatef(-zrot, 0.0f, 0.0f, 1.0f);
-	
 	#ifdef DEBUG
 		printf("x: %f z: %f\n", xrot, zrot);
 	#endif	
 		
 	glTranslatef(-x, -y, -z);
 	glCallList(displaylists+type);
+	glTranslatef(x, y, z);
 }
 
+void draw_ground(void){
+	glLoadIdentity();
+	glTranslatef(0, 0, -16);
+	
+	glRotatef(-xrot, 1.0f, 0.0f, 0.0f);
+	glRotatef(-zrot, 0.0f, 0.0f, 1.0f);
 
+	glCallList(ground);
+	glTranslatef(0, 0, -16);
+	glCallList(ground);
+	glTranslatef(0, 0, -16);
+	glCallList(ground);
+	glTranslatef(0, 0, -16);	
+	glCallList(ground);
+	glTranslatef(0, 0, -16);
+	glCallList(ground);
+	glTranslatef(0, 0, -16);
+	glCallList(ground);
+	glTranslatef(0, 0, -16);
+	glCallList(ground);
+	glTranslatef(0, 0, -16);
+	glCallList(ground);
+	glTranslatef(0, 0, -16);
+	glCallList(ground);
+	glTranslatef(0, 0, -16);
+
+	glCallList(ground);
+	glTranslatef(-16, 0, 160);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	glCallList(ground);
+	glTranslatef(-16, 0, -16);
+	
+
+		
+}

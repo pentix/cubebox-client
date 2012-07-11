@@ -40,6 +40,7 @@ extern int LoadGLTextures();
 GLuint textures[1];
 GLuint displaylists;
 
-float xrot, zrot; 
+float xrot, zrot;
+GLuint ground;
 
 #endif

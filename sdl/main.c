@@ -89,7 +89,7 @@ void sdl(stack* stackptr){
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
 	glClearColor(0.2f, 0.2f, 1.0f, 1.0f);
 	glClearDepth(1.0f);
 	
@@ -133,9 +133,14 @@ void sdl(stack* stackptr){
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			glLoadIdentity();
-			glTranslatef(0.0f, 0.0f, -5.0f);
-			draw_cube(0, 0, 0, 1);
+		glLoadIdentity();
+		//~ glTranslatef(0.0f, 0.0f, -5.0f);
+		//~ draw_cube(0, 0, 0, 1);
+
+		glLoadIdentity();
+		glRotatef(15000000000*xrot, 1000, 1000, 1000);
+		draw_ground();
+
 		SDL_GL_SwapBuffers();
 		SDL_Delay(40);
 	}
