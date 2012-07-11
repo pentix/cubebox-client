@@ -33,6 +33,8 @@ Mix_Chunk *sounds[NUMBER_OF_SOUNDS];
 extern void sdl(stack* stackptr);
 extern void sound(stack* stackptr);
 extern void play_sound(unsigned char id);
+extern void draw_cube(float x, float y, float z, int type);
+extern int LoadGLTextures();
 
 #define NUMBER_OF_TEXTURES 256
 GLuint textures[1];
