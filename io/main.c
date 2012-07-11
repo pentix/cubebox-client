@@ -58,11 +58,10 @@ void read_inputs(stack* stackptr){
 		}
 
 		
-		if(readin_keys[SDLK_SPACE]){
+		if(readin_keys[SDLK_SPACE]){  // TODO: and player is not in air
 			pthread_mutex_lock(&mutex[1]);
 				stack_push(1, SND_JUMP, NULL, 0);
 			pthread_mutex_unlock(&mutex[1]);
-			SDL_Delay(500);
 		}
 		
 	SDL_Delay(50);
