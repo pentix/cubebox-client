@@ -28,6 +28,6 @@ SDL_Event input_event;
 
 extern void io(stack* stackptr);
 
-#define MOUSE_SENSITIVITY 0.05
+#define MOUSE_SENSITIVITY 0.5
 
 #endif
