@@ -23,6 +23,13 @@
 #include "globals.h"
 #include "init.h"
 
+unsigned long getUsec(){
+	struct timeval tv;
+	gettimeofday(&tv,NULL);
+	return (unsigned long)1000000*(unsigned long)tv.tv_sec+(unsigned long)tv.tv_usec;
+}
+
+
 void config(void){
 	search_init("./etc/client.conf");
 	
@@ -56,40 +63,55 @@ void halt(){
 	int i;
 	for(i=0;i<NUMTHREADS;i++)
 		pthread_kill(thread[i], 3);
-	SDL_Quit();
 }
 
-/* Init the SDL environment */
-void *init_sdl(void* stackptr){
-	sdl((stack*) stackptr);
-	return NULL;
+/* Init graphic */
+void graphix(){
+	TimedCallback(display, GRAPHIC_FPS, 1);
+}
+
+void *init_graphic(void* stackptr){
+	char *argv[]={"cb_cli.exe\0",NULL};
+	int argc=1;
+	glutInit			(&argc,argv);
+	glutInitDisplayMode	(GLUT_RGBA | GLUT_DOUBLE);
+	glutInitWindowSize	(900, 600);
+	glutCreateWindow	("CUBEBOX");
+	glutFullScreen		();
+	glutDisplayFunc		(display);
+	glutReshapeFunc		(reshape);
+	glutKeyboardFunc	(keyboard);
+	glutSetCursor		(GLUT_CURSOR_FULL_CROSSHAIR);
+	glutIdleFunc		(graphix);
+
+	glShadeModel(GL_SMOOTH);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+	glClearDepth(1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glEnable ( GL_COLOR_MATERIAL );
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+	glutMainLoop		();
 }
 
 /* Init sound */
 void *init_sound(void* stackptr){
-	usleep(75000);
-	sound((stack*) stackptr);
 	return NULL;
 }
 
 /* Init map */
 void *init_map(void* stackptr){
-	usleep(50000);
-	map((stack*) stackptr);
 	return NULL;
 }
 
 /* Init com */
 void *init_com(void* stackptr){
-	usleep(50000);
-	com((stack*) stackptr);
 	return NULL;
 }
 
 /* Init io */
-void *init_io(void* stackptr){
-	usleep(100000);
-	io((stack*) stackptr);
+void *init_physix(void* stackptr){
 	return NULL;
 }
 
@@ -111,12 +133,11 @@ void init(void){
 	#endif
 	
 	
-	pthread_create(&thread[0], NULL, init_sdl, (void *)thread_stack[0]);
+	pthread_create(&thread[0], NULL, init_graphic, (void *)thread_stack[0]);
 	pthread_create(&thread[1], NULL, init_sound, (void *)thread_stack[1]);
 	pthread_create(&thread[2], NULL, init_map, (void *)thread_stack[2]);
 	pthread_create(&thread[3], NULL, init_com, (void *)thread_stack[3]);
-	pthread_create(&thread[4], NULL, init_io, (void *)thread_stack[4]);
-
+	pthread_create(&thread[4], NULL, init_physix, (void *)thread_stack[4]);
 }
 
 

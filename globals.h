@@ -24,27 +24,22 @@
 
 #define __DEBUG__
 
-#define NUMTHREADS 5
 
 //Default
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/time.h>
 
-//SDL
-#include <SDL/SDL.h>
-#include <SDL_mixer.h>
+//gl
+#include <GL/glut.h>
+#include <portaudio.h>
 #include <GL/glu.h>
 #include <GL/gl.h>
 
 //pthread
 #include <pthread.h>
 #include <signal.h>
-
-//Windows
-#ifdef WIN
-	#include <windows.h>
-#endif
 
 //Parser
 #include "../shared/libs/parser/parser.h"
@@ -60,20 +55,25 @@ typedef struct stack{
 
 extern void halt();
 
+
+#define NUMTHREADS 5
+
+#define GRAPHIC		0
+#define SOUND		1
+#define MAP_GEN		2
+#define SYNC_PLAYER	3
+#define IO_PHYSIC	4
+
+#define GRAPHIC_FPS 20
+
 pthread_t thread[NUMTHREADS];
 stack *thread_stack[NUMTHREADS];
 pthread_mutex_t mutex[NUMTHREADS];
 
-// 0: GRAPHIC
-// 1: SOUND
-// 2: GEN_MAP
-// 3: SYNC_PLAYER
-// 4: IO_PHYSIC
-
 #include "com/server/main.h"
 #include "com/thread/main.h"
 #include "io/main.h"
-#include "sdl/main.h"
+#include "gl/main.h"
 #include "map/main.h"
 
 #endif

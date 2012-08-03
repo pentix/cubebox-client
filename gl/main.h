@@ -19,28 +19,36 @@
  *
 */
 
-#ifndef __SDL_MAIN_H__
-#define __SDL_MAIN_H__
+#ifndef __gl_MAIN_H__
+#define __gl_MAIN_H__
 
-enum {
-	SND_JUMP=0,
-	NUMBER_OF_SOUNDS
-};
+#include "../globals.h"
 
-// Sounds
-Mix_Chunk *sounds[NUMBER_OF_SOUNDS];
+extern void reshape(int width,int height);
+extern void keyboard(unsigned char key, int x, int y);
+extern void display();
 
-extern void sdl(stack* stackptr);
-extern void sound(stack* stackptr);
-extern void play_sound(unsigned char id);
-extern void draw_cube(float x, float y, float z, int type);
-extern int LoadGLTextures();
 
-#define NUMBER_OF_TEXTURES 256
-GLuint textures[1];
-GLuint displaylists;
-
-float xrot, zrot;
-GLuint ground;
-
+//~ 
+//~ enum {
+	//~ SND_JUMP=0,
+	//~ NUMBER_OF_SOUNDS
+//~ };
+//~ 
+//~ // Sounds
+//~ char *sounds[NUMBER_OF_SOUNDS];
+//~ 
+//~ extern void gl(stack* stackptr);
+//~ extern void sound(stack* stackptr);
+//~ extern void play_sound(unsigned char id);
+//~ extern void draw_cube(float x, float y, float z, int type);
+//~ extern int LoadGLTextures();
+//~ 
+//~ #define NUMBER_OF_TEXTURES 256
+//~ unsigned int textures[1];
+//~ unsigned int displaylists;
+//~ 
+//~ float xrot, zrot;
+//~ unsigned int ground;
+//~ 
 #endif

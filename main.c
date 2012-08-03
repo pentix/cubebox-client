@@ -23,13 +23,6 @@
 #include "globals.h"
 #include "init.h"
 
-#ifdef WIN
-int WINAPI WinMain (HINSTANCE hThisInstance,
-                    HINSTANCE hPrevInstance,
-                    LPSTR lpszArgument,
-                    int nFunsterStil){main(NULL, NULL);}
-#endif
-
 
 int main(int argc, char **argv){
 	atexit(halt);

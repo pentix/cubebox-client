@@ -23,6 +23,8 @@
 #ifndef __MAP_MAIN_H__
 #define __MAP_MAIN_H__
 
+#include "../globals.h"
+
 extern void map(stack* stackptr);
 
 // All the blocks are saved in this huge 3d array

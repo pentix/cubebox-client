@@ -20,7 +20,6 @@
 */
 
 
-#include "../globals.h"
 #include "main.h"
 
 void fill_chunk(float x, float y, float z){

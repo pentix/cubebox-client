@@ -24,4 +24,13 @@
 
 extern void init(void);
 
+extern unsigned long getUsec();
+
+#define TimedCallback(func, CPS, BrkCond) \
+	while(!BrkCond){ \
+		unsigned long cb_time=getUsec(); \
+		func(); \
+		usleep((int)((1.0f/(((float)CPS/1000000.0f)))-(getUsec()-cb_time)));\
+	}
+
 #endif

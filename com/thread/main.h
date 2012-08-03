@@ -24,6 +24,9 @@
 
 #include "../../globals.h"
 
+#define OPEN_STACK(StackNr) pthread_mutex_lock(&mutex[StackNr]);
+#define DROP_STACK(tackNRtarget, type)	target=*((type*)stackptr->val);
+#define CLOSE_STACK(StackNr) pthread_mutex_lock(&mutex[StackNr]);
 
 extern void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size);
 extern stack* stack_drop(unsigned int thread_id);
