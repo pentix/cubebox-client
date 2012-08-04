@@ -27,6 +27,7 @@
 extern void reshape(int width,int height);
 extern void keyboard(unsigned char key, int x, int y);
 extern void display();
+extern void mouse();
 
 
 //~ 

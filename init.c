@@ -83,7 +83,8 @@ void *init_graphic(void* stackptr){
 	glutKeyboardFunc	(keyboard);
 	glutSetCursor		(GLUT_CURSOR_FULL_CROSSHAIR);
 	glutIdleFunc		(graphix);
-
+	glutPassiveMotionFunc(mouse);
+	
 	glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	glClearDepth(1.0f);

@@ -31,8 +31,15 @@ void reshape(int width,int height){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,100.0f);
+	glutWarpPointer(width/2, height/2);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();									
+}
+
+void mouse(){
+	int width = glutGet(GLUT_WINDOW_WIDTH);
+	int height = glutGet(GLUT_WINDOW_HEIGHT);
+	glutWarpPointer(width/2, height/2);	
 }
 
 void display(){
@@ -41,7 +48,7 @@ void display(){
 
 void keyboard(unsigned char key, int x, int y){
 	if(key==27){
-		exit(0);
+		raise(11);
 	}
 	printf("%c\n", key);
 }
