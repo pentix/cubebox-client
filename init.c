@@ -20,7 +20,6 @@
 */
 
 
-#include "globals.h"
 #include "init.h"
 
 unsigned long getUsec(){

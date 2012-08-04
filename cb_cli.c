@@ -19,9 +19,17 @@
  *
 */
 
-#ifndef __COM_SERVER_MAIN_H__
-#define __COM_SERVER_MAIN_H__
 
-extern void com(stack* stackptr);
+#include "globals.h"
+#include "init.h"
 
-#endif
+int main(int argc, char **argv){
+	atexit(halt);
+	init();
+	
+	getchar();
+	printf("Exit\n");
+	
+	halt();
+	return 0;
+}

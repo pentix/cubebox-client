@@ -20,8 +20,7 @@
 */
 
 
-#include "main.h"
-#include "../../globals.h"
+#include "thread.h"
 
 void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size){
 	void *HEAD;

@@ -19,6 +19,7 @@
  *
 */
 
+
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 
@@ -42,7 +43,7 @@
 #include <signal.h>
 
 //Parser
-#include "../shared/libs/parser/parser.h"
+#include "../../shared/libs/parser/parser.h"
 
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
 
@@ -70,10 +71,10 @@ pthread_t thread[NUMTHREADS];
 stack *thread_stack[NUMTHREADS];
 pthread_mutex_t mutex[NUMTHREADS];
 
-#include "com/server/main.h"
-#include "com/thread/main.h"
-#include "io/main.h"
-#include "gl/main.h"
-#include "map/main.h"
+#include "server.h"
+#include "thread.h"
+#include "physix.h"
+#include "glut.h"
+#include "map.h"
 
 #endif

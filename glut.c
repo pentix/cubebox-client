@@ -20,8 +20,7 @@
 */
 
 
-#include "main.h"
-
+#include "glut.h"
 
 void reshape(int width,int height){
   if (height==0){

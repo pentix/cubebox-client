@@ -20,37 +20,14 @@
 */
 
 
-#include "main.h"
+#ifndef __MAP_H__
+#define __MAP_H__
 
-void fill_chunk(float x, float y, float z){
-	long lx, ly, lz;
-	long *worldptr;
-	
-	pthread_mutex_lock(&mutex[0]);
-		for(lx=x; lx<x+16; lx++){
-			for(ly=y; ly<y+16; ly++){
-				for(lz=z; lz<z+512; lz++){
-					worldptr = (long *)malloc(4*sizeof(long));
-					
-					// Write a stone
-					world[lx][ly][lz] = 1;
-					worldptr[0] = lx;
-					worldptr[1] = ly;
-					worldptr[2] = lz;
-					worldptr[3] = 1; // Stones
-					
-					// Push it
-					stack_push(0, 11, (void *)worldptr, 4*sizeof(long));
-				}
-			}
-		}
-	pthread_mutex_unlock(&mutex[0]);
-}
+#include "globals.h"
 
-void generate_map(void){
+extern void map(stack* stackptr);
 
-}
+// All the blocks are saved in this huge 3d array
+unsigned short world[512][512][512];
 
-void map(stack* stackptr){
-	
-}
+#endif

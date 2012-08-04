@@ -20,14 +20,11 @@
 */
 
 
-#ifndef __MAP_MAIN_H__
-#define __MAP_MAIN_H__
+#ifndef __SERVER_H__
+#define __SERVER_H__
 
-#include "../globals.h"
+#include "globals.h"
 
-extern void map(stack* stackptr);
-
-// All the blocks are saved in this huge 3d array
-unsigned short world[512][512][512];
+extern void com(stack* stackptr);
 
 #endif

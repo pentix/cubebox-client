@@ -20,21 +20,11 @@
 */
 
 
-#ifndef __INIT_H__
-#define __INIT_H__
+#ifndef __PHYSIX_H__
+#define __PHYSIX_H__
 
 #include "globals.h"
 
-extern void init(void);
-
-extern unsigned long getUsec();
-
-#define TimedCallback(func, CPS, BrkCond) \
-	do{ \
-		unsigned long cb_time=getUsec(); \
-		func(); \
-		usleep((int)((1000000.0f/(((float)CPS)))-(getUsec()-cb_time)));\
-		printf("Refresh time %lu-%lu=%lu usec\n",getUsec(), cb_time, getUsec()-cb_time);\
-	}while(!BrkCond)
+#define MOUSE_SENSITIVITY 0.5
 
 #endif

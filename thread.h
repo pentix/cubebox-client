@@ -19,13 +19,14 @@
  *
 */
 
-#ifndef __COM_THREAD_MAIN_H__
-#define __COM_THREAD_MAIN_H__
 
-#include "../../globals.h"
+#ifndef __THREAD_H__
+#define __THREAD_H__
+
+#include "globals.h"
 
 #define OPEN_STACK(StackNr) pthread_mutex_lock(&mutex[StackNr]);
-#define DROP_STACK(tackNRtarget, type)	target=*((type*)stackptr->val);
+#define POP_STACK(StackNr, target, type) target=*((type*)stack_head(StackNr)->val);stack_drop(StackNr);
 #define CLOSE_STACK(StackNr) pthread_mutex_lock(&mutex[StackNr]);
 
 extern void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size);

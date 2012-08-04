@@ -19,10 +19,11 @@
  *
 */
 
+
 #ifndef __gl_MAIN_H__
 #define __gl_MAIN_H__
 
-#include "../globals.h"
+#include "globals.h"
 
 extern void reshape(int width,int height);
 extern void keyboard(unsigned char key, int x, int y);

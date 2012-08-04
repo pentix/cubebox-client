@@ -19,7 +19,7 @@
  *
 */
 
-#include "../../globals.h"
-#include "main.h"
+
+#include "server.h"
 
 void com(stack* stackptr){}
