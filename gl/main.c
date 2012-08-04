@@ -48,7 +48,7 @@ void display(){
 
 void keyboard(unsigned char key, int x, int y){
 	if(key==27){
-		raise(11);
+		raise(SIGTERM);
 	}
 	printf("%c\n", key);
 }
