@@ -55,14 +55,20 @@
 
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
 
+typedef struct stack{
+	unsigned char id;
+	void *val;
+	struct stack *next;
+} stack;
+
 #define GRAPHIC		0
 #define SOUND		1
 #define MAP_GEN		2
 #define SYNC_PLAYER	3
 #define IO_PHYSIC	4
 
-#include "server.h"
 #include "thread.h"
+#include "server.h"
 #include "physix.h"
 #include "glut.h"
 #include "map.h"

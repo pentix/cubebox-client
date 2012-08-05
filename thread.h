@@ -31,12 +31,6 @@
 
 #define NUMTHREADS 5
 
-typedef struct stack{
-	unsigned char id;
-	void *val;
-	struct stack *next;
-} stack;
-
 pthread_t thread[NUMTHREADS];
 stack *thread_stack[NUMTHREADS];
 pthread_mutex_t mutex[NUMTHREADS];

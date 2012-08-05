@@ -26,8 +26,9 @@
 #include "globals.h"
 
 extern void init(void);
+extern void halt(void);
 
-extern unsigned long getUsec();
+extern unsigned long getUsec(void);
 
 #define TimedCallback(func, CPS, BrkCond) \
 	do{ \
@@ -35,6 +36,6 @@ extern unsigned long getUsec();
 		func(); \
 		usleep((int)((1000000.0f/(((float)CPS)))-(getUsec()-cb_time)));\
 		printf("Refresh time %lu-%lu=%lu usec\n",getUsec(), cb_time, getUsec()-cb_time);\
-	}while(!BrkCond)
+	}while(!BrkCond);
 
 #endif
