@@ -20,10 +20,32 @@
 */
 
 
+/****h* Client/Glut
+ * NAME
+ *   Glut
+ * FUNCTION
+ *   This module provides the Glut callback functions.
+ *
+ ******/
+ 
+ 
 #include "glut.h"
 
-void reshape(int width,int height){
-  if (height==0){
+/****f* Glut/Reshape
+ * NAME
+ *   reshape
+ * FUNCTION
+ *   reshape is a glut callback function.
+ *   It gets called when the window size is modified.
+ * INPUTS
+ *   * width -- window width
+ *   * height -- window height
+ * NOTES
+ *   Function arguments are provided by glut.
+ * SOURCE
+ */
+void reshape(int width, int height){
+	if (height==0){
 		height=1;
 	}
 	glViewport(0,0,width,height);
@@ -34,6 +56,7 @@ void reshape(int width,int height){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();									
 }
+/******/
 
 void mouse(){
 	int width = glutGet(GLUT_WINDOW_WIDTH);

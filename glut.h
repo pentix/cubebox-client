@@ -25,6 +25,8 @@
 
 #include "globals.h"
 
+#define GRAPHIC_FPS 20
+
 extern void reshape(int width,int height);
 extern void keyboard(unsigned char key, int x, int y);
 extern void display();

@@ -23,13 +23,33 @@
 #include "globals.h"
 #include "init.h"
 
+/****h* Client/CB_CLI
+ * NAME
+ *   cb_cli
+ * FUNCTION
+ *   This module provides the main function for the client.
+ *
+ ******/
+ 
+
+/****f* CB_CLI/Main
+ * NAME
+ *   main
+ * FUNCTION
+ *   Program entry point
+ * INPUTS
+ *   * argc -- number of arguments
+ *   * argv -- arguments
+ * SOURCE
+ */
 int main(int argc, char **argv){
+	int i;
 	atexit(halt);
 	init();
+
+	for(i=0;i<NUMTHREADS;i++)
+		pthread_join(thread[i], NULL);
 	
-	getchar();
-	printf("Exit\n");
-	
-	halt();
 	return 0;
 }
+/******/

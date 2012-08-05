@@ -20,6 +20,14 @@
 */
 
 
+/****h* Client/Globals
+ * NAME
+ *   globals
+ * FUNCTION
+ *   This module provides the headers used in the project.
+ ******/
+
+
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 
@@ -43,33 +51,15 @@
 #include <signal.h>
 
 //Parser
-#include "../../shared/libs/parser/parser.h"
+#include "../shared/libs/parser/parser.h"
 
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
-
-//FIFO
-typedef struct stack{
-	unsigned char id;
-	void *val;
-	struct stack *next;
-} stack;
-
-extern void halt();
-
-
-#define NUMTHREADS 5
 
 #define GRAPHIC		0
 #define SOUND		1
 #define MAP_GEN		2
 #define SYNC_PLAYER	3
 #define IO_PHYSIC	4
-
-#define GRAPHIC_FPS 20
-
-pthread_t thread[NUMTHREADS];
-stack *thread_stack[NUMTHREADS];
-pthread_mutex_t mutex[NUMTHREADS];
 
 #include "server.h"
 #include "thread.h"
