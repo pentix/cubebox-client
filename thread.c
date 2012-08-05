@@ -22,6 +22,19 @@
 
 #include "thread.h"
 
+/****f* Thread/stack_push
+ * NAME
+ *   stack_push
+ * FUNCTION
+ *   This pushs something in a stack, so other treads can work
+ *   task for task down.
+ * INPUTS
+ *   * thread_id -- To which tread the task belongs
+ *   * id -- The id (identifies the task)
+ *   * val -- pointer to additional informations
+ *   * val_size -- size of the memory segment 'val' points to
+ * SOURCE
+ */
 void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size){
 	void *HEAD;
 
@@ -35,12 +48,37 @@ void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned in
 		memcpy(thread_stack[thread_id]->val, val, val_size);
 	}
 }
+/******/
 
+
+/****f* Thread/stack_head
+ * NAME
+ *   stack_head
+ * FUNCTION
+ *   Returns the latest element in the stack
+ * INPUTS
+ *   thread_id -- The id of the thread of which the latest element should be returned
+ * RESULT
+ *   A pointer to the latest element
+ * SOURCE
+ */
 stack* stack_head(unsigned int thread_id ){
 	return 	thread_stack[thread_id];
 }
+/******/
 
 
+/****f* Thread/stack_drop
+ * NAME
+ *   stack_drop
+ * FUNCTION
+ *   Returns the next element in the stack and removes it from the stack
+ * INPUTS
+ *   thread_id -- The id of the thread of which the next element should be returned
+ * RESULT
+ *   A pointer to the next element
+ * SOURCE
+ */
 stack* stack_drop(unsigned int thread_id ){
 	stack *HEAD;
 	if(thread_stack[thread_id]->id == 0xFF) return NULL;
