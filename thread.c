@@ -88,4 +88,4 @@ stack* stack_drop(unsigned int thread_id ){
 	thread_stack[thread_id]=HEAD;
 	return HEAD;
 }
-
+/******/
