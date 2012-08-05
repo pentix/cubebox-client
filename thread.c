@@ -20,6 +20,14 @@
 */
 
 
+/****h* Client/Thread
+ * NAME
+ *   Thread
+ * FUNCTION
+ *   This module provides functions for secure thread communication.
+ *
+ ******/
+
 #include "thread.h"
 
 /****f* Thread/stack_push
