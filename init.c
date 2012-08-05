@@ -20,15 +20,43 @@
 */
 
 
+/****h* Client/Init
+ * NAME
+ *   Init
+ * FUNCTION
+ *   Thread initialition and glut setup.
+ *
+ ******/
+
 #include "init.h"
 
+/****f* Init/GetUsec
+ * NAME
+ *   getUsec
+ * FUNCTION
+ *   getUsec calculates usecs from gettimeofday.
+ * INPUTS
+ * RESULT
+ *   returns usecs
+ * SOURCE
+ */
 unsigned long getUsec(){
 	struct timeval tv;
 	gettimeofday(&tv,NULL);
 	return (unsigned long)1000000*(unsigned long)tv.tv_sec+(unsigned long)tv.tv_usec;
 }
+/******/
 
-
+/****f* Init/Config
+ * NAME
+ *   config
+ * FUNCTION
+ *   config reads the config file.
+ * INPUTS
+ * RESULT
+ *   configuration gets pushed to the related thread.
+ * SOURCE
+ */
 void config(void){
 	search_init("./etc/client.conf");
 	
@@ -57,19 +85,47 @@ void config(void){
 	
 	search_destroy();
 }
+/******/
 
+/****f* Init/Halt
+ * NAME
+ *   halt
+ * FUNCTION
+ *   halt kills all threads.
+ * INPUTS
+ * RESULT
+ *   Stack and threads are properly terminated.
+ * SOURCE
+ */
 void halt(){
 	int i;
 	for(i=0;i<NUMTHREADS;i++)
 		pthread_kill(thread[i], 3);
 }
+/******/
 
-/* Init graphic */
+/****f* Init/Graphix
+ * NAME
+ *   graphix
+ * FUNCTION
+ *   graphix calls the display function and limit the fps.
+ * INPUTS
+ * SOURCE
+ */
 void graphix(){
 	TimedCallback(display, GRAPHIC_FPS, 1);
 }
+/******/
 
-void *init_graphic(void* stackptr){
+/****f* Init/Init_graphic
+ * NAME
+ *   init_graphic
+ * FUNCTION
+ *   init_graphic initializes the gl surface.
+ * INPUTS
+ * SOURCE
+ */
+void *init_graphic(){
 	char *argv[]={"cb_cli.exe\0",NULL};
 	int argc=1;
 	glutInit			(&argc,argv);
@@ -94,28 +150,76 @@ void *init_graphic(void* stackptr){
 
 	glutMainLoop		();
 }
+/******/
 
-/* Init sound */
-void *init_sound(void* stackptr){
+/****f* Init/Init_sound
+ * NAME
+ *   init_sound
+ * FUNCTION
+ *   init_sound initializes portaudio.
+ * INPUTS
+ * NOTES
+ *   Not implemented yet.
+ * SOURCE
+ */
+void *init_sound(){
 	return NULL;
 }
+/*****/
 
-/* Init map */
-void *init_map(void* stackptr){
+/****f* Init/Init_map
+ * NAME
+ *   init_map
+ * FUNCTION
+ *   init_map initializes the worldgenerator.
+ * INPUTS
+ * NOTES
+ *   Not implemented yet.
+ * SOURCE
+ */
+void *init_map(){
 	return NULL;
 }
+/******/
 
-/* Init com */
-void *init_com(void* stackptr){
+/****f* Init/Init_com
+ * NAME
+ *   init_com
+ * FUNCTION
+ *   init_com initializes the socket for the server communication.
+ * INPUTS
+ * NOTES
+ *   Not implemented yet.
+ * SOURCE
+ */
+void *init_com(){
 	return NULL;
 }
+/******/
 
-/* Init io */
+/****f* Init/Init_physix
+ * NAME
+ *   init_physix
+ * FUNCTION
+ *   init_physix initializes the function for movement and gravity calculations.
+ * INPUTS
+ * NOTES
+ *   Not implemented yet.
+ * SOURCE
+ */
 void *init_physix(void* stackptr){
 	return NULL;
 }
+/******/
 
-/* Init cubebox */
+/****f* Init/Init
+ * NAME
+ *   init
+ * FUNCTION
+ *   init initializes the threads.
+ * INPUTS
+ * SOURCE
+ */
 void init(void){
 	int i;
 	for(i=0;i<NUMTHREADS;i++){
@@ -139,5 +243,4 @@ void init(void){
 	pthread_create(&thread[3], NULL, init_com, (void *)thread_stack[3]);
 	pthread_create(&thread[4], NULL, init_physix, (void *)thread_stack[4]);
 }
-
-
+/*****/

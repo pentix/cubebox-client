@@ -21,5 +21,5 @@
 
 
 #include "server.h"
-
-void com(stack* stackptr){}
+//~ 
+//~ void com(stack* stackptr){}

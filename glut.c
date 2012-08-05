@@ -40,6 +40,8 @@
  * INPUTS
  *   * width -- window width
  *   * height -- window height
+ * RESULT
+ *   Perspective gets adjusted to new window size
  * NOTES
  *   Function arguments are provided by glut.
  * SOURCE
@@ -58,23 +60,66 @@ void reshape(int width, int height){
 }
 /******/
 
+/****f* Glut/Mouse
+ * NAME
+ *   mouse
+ * FUNCTION
+ *   mouse is a glut callback function.
+ *   It gets called when the mouse is moved.
+ * INPUTS
+ * 
+ * RESULT
+ *   Mouse gets centred in window.
+ * NOTES
+ *   Function arguments are provided by glut.
+ * SOURCE
+ */
 void mouse(){
 	int width = glutGet(GLUT_WINDOW_WIDTH);
 	int height = glutGet(GLUT_WINDOW_HEIGHT);
 	glutWarpPointer(width/2, height/2);	
 }
+/******/
 
+/****f* Glut/Display
+ * NAME
+ *   display
+ * FUNCTION
+ *   display is a glut callback function.
+ *   It gets cyclicaly called with limited FPS.
+ * INPUTS
+ * 
+ * RESULT
+ *   Everything gets drawed here.
+ * SOURCE
+ */
 void display(){
 	
 }
+/******/
 
+/****f* Glut/Keyboard
+ * NAME
+ *   keyboard
+ * FUNCTION
+ *   keyboard is a glut callback function.
+ *   It gets called when a key is pressed.
+ * INPUTS
+ *   *key -- keycode
+ *   *x	-- x-position
+ *   *y -- y-position
+ * 
+ * RESULT
+ *   Terminate game with ESC
+ * SOURCE
+ */
 void keyboard(unsigned char key, int x, int y){
 	if(key==27){
 		raise(SIGTERM);
 	}
 	printf("%c\n", key);
 }
-
+/******/
 
 //~ 
 //~ #ifndef WIN
