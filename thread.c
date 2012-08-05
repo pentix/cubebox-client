@@ -30,7 +30,7 @@
 
 #include "thread.h"
 
-/****f* Thread/stack_push
+/****f* Thread/Stack_push
  * NAME
  *   stack_push
  * FUNCTION
@@ -59,7 +59,7 @@ void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned in
 /******/
 
 
-/****f* Thread/stack_head
+/****f* Thread/Stack_head
  * NAME
  *   stack_head
  * FUNCTION
@@ -76,7 +76,7 @@ stack* stack_head(unsigned int thread_id ){
 /******/
 
 
-/****f* Thread/stack_drop
+/****f* Thread/Stack_drop
  * NAME
  *   stack_drop
  * FUNCTION
