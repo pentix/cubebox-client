@@ -183,6 +183,8 @@ void *init_graphic(){
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
 	glutMainLoop		();
+	
+	return NULL;
 }
 /******/
 
