@@ -134,8 +134,8 @@ void *init_graphic(){
 	OPEN_STACK(0);
 	
 	while(((stackptr=stack_head(0)) != NULL)&&(stack_head(0)->id!=0xFF)){
-	printf("STACK0 %p %i\n", stack_head(0), stack_head(0)->id);
-	getchar();
+		printf("STACK0 %p %i\n", stack_head(0), stack_head(0)->id);
+
 		switch(stackptr->id){
 			case 0:
 				intptr=POP_STACK(0, int);
@@ -163,7 +163,7 @@ void *init_graphic(){
 	
 	glutInit			(&argc,argv);
 	glutInitDisplayMode	(GLUT_RGBA | GLUT_DOUBLE);
-	glutInitWindowSize	(900, 600);
+	glutInitWindowSize	(width, height);
 	glutCreateWindow	("CUBEBOX");
 	glutDisplayFunc		(display);
 	glutReshapeFunc		(reshape);

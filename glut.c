@@ -139,7 +139,7 @@ void display(){
 	//~ draw_cube(0, 0, 0, 1);
 
 	glLoadIdentity();
-	glRotatef(15000000000*xrot, 1000, 1000, 1000);
+	glRotatef(xrot, 1000, 1000, 1000);
 	//~ draw_ground();
 	
 	glutSwapBuffers();
