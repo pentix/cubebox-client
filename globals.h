@@ -61,11 +61,15 @@ typedef struct stack{
 	struct stack *next;
 } stack;
 
-#define GRAPHIC		0
-#define SOUND		1
-#define MAP_GEN		2
-#define SYNC_PLAYER	3
-#define IO_PHYSIC	4
+
+enum {
+	GRAPHIC=0,
+	SOUND,
+	MAP_GEN,
+	SYNC_PLAYER,
+	IO_PHYSIC
+};
+
 
 #include "thread.h"
 #include "server.h"
