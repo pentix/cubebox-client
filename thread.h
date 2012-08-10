@@ -26,8 +26,8 @@
 #include "globals.h"
 
 #define OPEN_STACK(StackNr) pthread_mutex_lock(&mutex[StackNr]);
-#define POP_STACK(StackNr, target, type) target=*((type*)stack_head(StackNr)->val);stack_drop(StackNr);
-#define CLOSE_STACK(StackNr) pthread_mutex_lock(&mutex[StackNr]);
+#define POP_STACK(StackNr, type) ((type*)stack_head(StackNr)->val);stack_drop(StackNr);
+#define CLOSE_STACK(StackNr) pthread_mutex_unlock(&mutex[StackNr]);
 
 #define NUMTHREADS 5
 
@@ -39,5 +39,6 @@ pthread_mutex_t mutex[NUMTHREADS];
 extern void stack_push(unsigned int thread_id, unsigned char id, void *val, unsigned int val_size);
 extern stack* stack_drop(unsigned int thread_id);
 extern stack* stack_head(unsigned int thread_id);
+
 
 #endif

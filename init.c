@@ -65,13 +65,13 @@ void config(void){
 	int val[4];
 
 	// window-width
-	val[0]=atoi(((check=search_for_key("window-width", 1))!=NULL)?check:"0");
+	val[0]=atoi(((check=search_for_key("window-width", 1))!=NULL)?check:"900");
 		
 	// window-height
-	val[1]=atoi(((check=search_for_key("window-height", 1))!=NULL)?check:"0");
+	val[1]=atoi(((check=search_for_key("window-height", 1))!=NULL)?check:"600");
 	
 	// color-depth
-	val[2]=atoi(((check=search_for_key("color-depth", 1))!=NULL)?check:"0");
+	val[2]=atoi(((check=search_for_key("color-depth", 1))!=NULL)?check:"24");
 	
 	// fullscreen
 	val[3]=atoi(((check=search_for_key("fullscreen", 1))!=NULL)?check:"0");
@@ -126,19 +126,53 @@ void graphix(){
  * SOURCE
  */
 void *init_graphic(){
-	char *argv[]={"cb_cli.exe\0",NULL};
-	int argc=1;
+	char *argv[]={"cubebox\0",NULL};
+	int argc=1, *intptr, width, height;
+
+	stack *stackptr;
+		
+	OPEN_STACK(0);
+	
+	while(((stackptr=stack_head(0)) != NULL)&&(stack_head(0)->id!=0xFF)){
+	printf("STACK0 %p %i\n", stack_head(0), stack_head(0)->id);
+	getchar();
+		switch(stackptr->id){
+			case 0:
+				intptr=POP_STACK(0, int);
+				if(*(intptr))glutFullScreen();
+				free(intptr);
+			break;
+			case 1:
+				intptr=POP_STACK(0, int);
+				width=*(intptr);
+				free(intptr);
+			break;
+			case 2:
+				intptr=POP_STACK(0, int);
+				height=*(intptr);
+				free(intptr);
+			break;
+			default:
+				intptr=POP_STACK(0, int);
+				free(intptr);
+			break;
+		}
+	}
+
+	CLOSE_STACK(0);
+	
 	glutInit			(&argc,argv);
 	glutInitDisplayMode	(GLUT_RGBA | GLUT_DOUBLE);
 	glutInitWindowSize	(900, 600);
 	glutCreateWindow	("CUBEBOX");
-	glutFullScreen		();
 	glutDisplayFunc		(display);
 	glutReshapeFunc		(reshape);
 	glutKeyboardFunc	(keyboard);
 	glutSetCursor		(GLUT_CURSOR_FULL_CROSSHAIR);
 	glutIdleFunc		(graphix);
 	glutPassiveMotionFunc(mouse);
+	
+	//~ loadTextures();
 	
 	glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
