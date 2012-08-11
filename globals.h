@@ -89,5 +89,6 @@ enum {
 #include "physix.h"
 #include "glut.h"
 #include "map.h"
+#include "init.h"
 
 #endif

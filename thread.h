@@ -20,7 +20,7 @@
 */
 
 
-/****h* Client/Thread
+/****h* Client/Thread_h
  * NAME
  *   Thread
  * FUNCTION

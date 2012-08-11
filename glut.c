@@ -102,7 +102,7 @@ void keyboard(unsigned char key, int x, int y){
 	
 	// Terminate game with Esc
 	if(key == 27){
-		raise(SIGTERM);
+		halt();
 	}
 }
 /******/

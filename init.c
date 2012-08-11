@@ -97,7 +97,8 @@ void config(void){
  *   Stack and threads are properly terminated.
  * SOURCE
  */
-void halt(){
+void halt(void){
+	printf("Bye!\n");
 	int i;
 	for(i=0;i<NUMTHREADS;i++)
 		pthread_kill(thread[i], 3);
