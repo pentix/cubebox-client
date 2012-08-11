@@ -76,7 +76,7 @@ typedef struct stack{
 
 
 enum {
-	THREAD_GRAPHIC=0,
+	THREAD_GRAPHICS=0,
 	THREAD_SOUND,
 	THREAD_MAP_GEN,
 	THREAD_SYNC_PLAYER,

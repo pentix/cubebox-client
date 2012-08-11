@@ -189,22 +189,22 @@ void display(){
 	float zrot, xrot, *floatptr;
 	long *longptr;
 
-	OPEN_STACK(0);
+	OPEN_STACK(THREAD_GRAPHICS);
 	
 	while(((stackptr=stack_head(0)) != NULL)&&(stack_head(0)->id!=0xFF)){
 		switch(stackptr->id){
 			case 7:
-				floatptr=POP_STACK(0, float);
+				floatptr=POP_STACK(THREAD_GRAPHICS, float);
 				zrot += *(floatptr);
 				free(floatptr);
 			break;
 			case 8:
-				floatptr=POP_STACK(0, float);
+				floatptr=POP_STACK(THREAD_GRAPHICS, float);
 				xrot += *(floatptr);
 				free(floatptr);
 			break;
 			case 11:
-				longptr = POP_STACK(0,long);
+				longptr = POP_STACK(THREAD_GRAPHICS, long);
 
 				glLoadIdentity();
 				glTranslatef(0.0f, 0.0f, -5.0f);
@@ -214,12 +214,12 @@ void display(){
 				free(longptr);
 			break;
 			default:
-				longptr=POP_STACK(0, long);
+				longptr=POP_STACK(THREAD_GRAPHICS, long);
 				free(longptr);
 			break;
 		}
 	}
-	CLOSE_STACK(0);
+	CLOSE_STACK(THREAD_GRAPHICS);
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

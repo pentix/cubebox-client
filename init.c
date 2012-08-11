@@ -76,12 +76,12 @@ void config(void){
 	// fullscreen
 	val[3]=atoi(((check=search_for_key("fullscreen", 1))!=NULL)?check:"0");
 
-	pthread_mutex_lock(&mutex[0]);
-		stack_push(0, 1, &val[0], sizeof(int));
-		stack_push(0, 2, &val[1], sizeof(int));
-		stack_push(0, 3, &val[2], sizeof(int));
-		stack_push(0, 0, &val[3], sizeof(int));
-	pthread_mutex_unlock(&mutex[0]);
+	pthread_mutex_lock(&mutex[THREAD_GRAPHICS]);
+		stack_push(THREAD_GRAPHICS, 1, &val[0], sizeof(int));
+		stack_push(THREAD_GRAPHICS, 2, &val[1], sizeof(int));
+		stack_push(THREAD_GRAPHICS, 3, &val[2], sizeof(int));
+		stack_push(THREAD_GRAPHICS, 0, &val[3], sizeof(int));
+	pthread_mutex_unlock(&mutex[THREAD_GRAPHICS]);
 	
 	search_destroy();
 }
@@ -132,35 +132,35 @@ void *init_graphic(){
 
 	stack *stackptr;
 		
-	OPEN_STACK(0);
+	OPEN_STACK(THREAD_GRAPHICS);
 	
-	while(((stackptr=stack_head(0)) != NULL)&&(stack_head(0)->id!=0xFF)){
-		printf("STACK0 %p %i\n", stack_head(0), stack_head(0)->id);
+	while(((stackptr=stack_head(THREAD_GRAPHICS)) != NULL)&&(stack_head(THREAD_GRAPHICS)->id!=0xFF)){
+		printf("STACK0 %p %i\n", stack_head(THREAD_GRAPHICS), stack_head(THREAD_GRAPHICS)->id);
 
 		switch(stackptr->id){
 			case 0:
-				intptr=POP_STACK(0, int);
+				intptr=POP_STACK(THREAD_GRAPHICS, int);
 				if(*(intptr))glutFullScreen();
 				free(intptr);
 			break;
 			case 1:
-				intptr=POP_STACK(0, int);
+				intptr=POP_STACK(THREAD_GRAPHICS, int);
 				width=*(intptr);
 				free(intptr);
 			break;
 			case 2:
-				intptr=POP_STACK(0, int);
+				intptr=POP_STACK(THREAD_GRAPHICS, int);
 				height=*(intptr);
 				free(intptr);
 			break;
 			default:
-				intptr=POP_STACK(0, int);
+				intptr=POP_STACK(THREAD_GRAPHICS, int);
 				free(intptr);
 			break;
 		}
 	}
 
-	CLOSE_STACK(0);
+	CLOSE_STACK(THREAD_GRAPHICS);
 	
 	glutInit			(&argc,argv);
 	glutInitDisplayMode	(GLUT_RGBA | GLUT_DOUBLE);
