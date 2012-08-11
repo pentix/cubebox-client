@@ -168,6 +168,7 @@ void *init_graphic(){
 	glutDisplayFunc		(display);
 	glutReshapeFunc		(reshape);
 	glutKeyboardFunc	(keyboard);
+	glutKeyboardUpFunc	(keyboard_up);
 	glutSetCursor		(GLUT_CURSOR_FULL_CROSSHAIR);
 	glutIdleFunc		(graphix);
 	glutPassiveMotionFunc(mouse);
@@ -244,6 +245,7 @@ void *init_com(){
  * SOURCE
  */
 void *init_physix(void* stackptr){
+	physix();
 	return NULL;
 }
 /******/

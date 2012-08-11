@@ -27,4 +27,6 @@
 
 #define MOUSE_SENSITIVITY 0.5
 
+extern void physix(void);
+
 #endif
