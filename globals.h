@@ -24,7 +24,7 @@
  * NAME
  *   globals
  * FUNCTION
- *   This module provides the headers used in the project.
+ *   This module provides the headers and macros used in the project.
  ******/
 
 
@@ -53,7 +53,20 @@
 //Parser
 #include "../shared/libs/parser/parser.h"
 
+/****d* Client/Falloc
+ * NAME
+ *   falloc
+ * FUNCTION
+ *   "Force" memory allocation. This means wait until some memory
+ *   is available.
+ * NOTES
+ *   Ever seen a malloc() with a "normal" number of bytes failing?
+ *   Well, we will never use malloc with a such high number of bytes,
+ *   so: Never fear! :-)
+ * SOURCE
+ */
 #define falloc(ptr,n_bytes) while((ptr=malloc(n_bytes))==NULL);
+/******/
 
 typedef struct stack{
 	unsigned char id;
