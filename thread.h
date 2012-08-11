@@ -20,14 +20,49 @@
 */
 
 
+/****h* Client/Thread
+ * NAME
+ *   Thread
+ * FUNCTION
+ *   This module provides functions for secure thread communication.
+ *
+ ******/
+
 #ifndef __THREAD_H__
 #define __THREAD_H__
 
 #include "globals.h"
 
+/****d* Thread/OPEN_STACK
+ * NAME
+ *   OPEN_STACK
+ * FUNCTION
+ *   Lock a mutex for a specific thread
+ * SOURCE
+ */
 #define OPEN_STACK(StackNr) pthread_mutex_lock(&mutex[StackNr]);
+/******/
+
+/****d* Thread/POP_STACK
+ * NAME
+ *   POP_STACK
+ * FUNCTION
+ *   Returns a pointer of a specific type to the newest value from a stack  
+ * SOURCE
+ */
 #define POP_STACK(StackNr, type) ((type*)stack_head(StackNr)->val);stack_drop(StackNr);
+/******/
+
+/****d* Thread/CLOSE_STACK
+ * NAME
+ *   CLOSE_STACK
+ * FUNCTION
+ *   Unlock a mutex for a specific thread
+ * SOURCE
+ */
 #define CLOSE_STACK(StackNr) pthread_mutex_unlock(&mutex[StackNr]);
+/******/
+
 
 #define NUMTHREADS 5
 
