@@ -97,10 +97,7 @@ void config(void){
  * SOURCE
  */
 void halt(void){
-	int i;
 	printf("Bye!\n");
-	for(i=0;i<NUMTHREADS;i++)
-		pthread_kill(thread[i], 3);
 	raise(SIGTERM);
 }
 /******/
