@@ -81,24 +81,18 @@ void keyboard(unsigned char key, int x, int y){
 	// Convert lowercase letters to uppercase letters
 	if(key > 96 && key < 123)
 		key-=32;
-	
+
+	OPEN_STACK(THREAD_PHYSICS);
 	if(key == 'W'){
-		pthread_mutex_lock(&mutex[THREAD_PHYSICS]);
 			stack_push(THREAD_PHYSICS, 9, NULL, 0);
-		pthread_mutex_unlock(&mutex[THREAD_PHYSICS]);
 	} else if(key == 'S'){
-		pthread_mutex_lock(&mutex[THREAD_PHYSICS]);
 			stack_push(THREAD_PHYSICS, 11, NULL, 0);
-		pthread_mutex_unlock(&mutex[THREAD_PHYSICS]);
 	} else if(key == 'A'){
-		pthread_mutex_lock(&mutex[THREAD_PHYSICS]);
 			stack_push(THREAD_PHYSICS, 3, NULL, 0);
-		pthread_mutex_unlock(&mutex[THREAD_PHYSICS]);
 	} else if(key == 'D'){
-		pthread_mutex_lock(&mutex[THREAD_PHYSICS]);
 			stack_push(THREAD_PHYSICS, 1, NULL, 0);
-		pthread_mutex_unlock(&mutex[THREAD_PHYSICS]);		
 	}
+	CLOSE_STACK(THREAD_PHYSICS);
 	
 	// Terminate game with Esc
 	if(key == 27){
@@ -129,23 +123,18 @@ void keyboard_up(unsigned char key, int x, int y){
 	if(key > 96 && key < 123)
 		key-=32;
 	
+	OPEN_STACK(THREAD_PHYSICS);
 	if(key == 'W'){
-		pthread_mutex_lock(&mutex[THREAD_PHYSICS]);
 			stack_push(THREAD_PHYSICS, 10, NULL, 0);
-		pthread_mutex_unlock(&mutex[THREAD_PHYSICS]);
 	} else if(key == 'S'){
-		pthread_mutex_lock(&mutex[THREAD_PHYSICS]);
 			stack_push(THREAD_PHYSICS, 12, NULL, 0);
-		pthread_mutex_unlock(&mutex[THREAD_PHYSICS]);
 	} else if(key == 'A'){
-		pthread_mutex_lock(&mutex[THREAD_PHYSICS]);
 			stack_push(THREAD_PHYSICS, 4, NULL, 0);
-		pthread_mutex_unlock(&mutex[THREAD_PHYSICS]);
 	} else if(key == 'D'){
-		pthread_mutex_lock(&mutex[THREAD_PHYSICS]);
 			stack_push(THREAD_PHYSICS, 2, NULL, 0);
-		pthread_mutex_unlock(&mutex[THREAD_PHYSICS]);		
 	}
+	CLOSE_STACK(THREAD_PHYSICS);
+
 }
 /******/
 

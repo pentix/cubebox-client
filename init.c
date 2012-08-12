@@ -58,11 +58,10 @@ unsigned long getUsec(){
  * SOURCE
  */
 void config(void){
-	search_init("./etc/client.conf");
-	
 	// Graphic configuration
 	char *check;
 	int val[4];
+	search_init("./etc/client.conf");
 
 	// window-width
 	val[0]=atoi(((check=search_for_key("window-width", 1))!=NULL)?check:"900");
@@ -76,12 +75,12 @@ void config(void){
 	// fullscreen
 	val[3]=atoi(((check=search_for_key("fullscreen", 1))!=NULL)?check:"0");
 
-	pthread_mutex_lock(&mutex[THREAD_GRAPHICS]);
+	OPEN_STACK(THREAD_GRAPHICS);
 		stack_push(THREAD_GRAPHICS, 1, &val[0], sizeof(int));
 		stack_push(THREAD_GRAPHICS, 2, &val[1], sizeof(int));
 		stack_push(THREAD_GRAPHICS, 3, &val[2], sizeof(int));
 		stack_push(THREAD_GRAPHICS, 0, &val[3], sizeof(int));
-	pthread_mutex_unlock(&mutex[THREAD_GRAPHICS]);
+	CLOSE_STACK(THREAD_GRAPHICS);
 	
 	search_destroy();
 }
@@ -98,10 +97,11 @@ void config(void){
  * SOURCE
  */
 void halt(void){
-	printf("Bye!\n");
 	int i;
+	printf("Bye!\n");
 	for(i=0;i<NUMTHREADS;i++)
 		pthread_kill(thread[i], 3);
+	raise(SIGTERM);
 }
 /******/
 
@@ -246,7 +246,8 @@ void *init_com(){
  * SOURCE
  */
 void *init_physix(void* stackptr){
-	physix();
+	while(1)
+		TimedCallback(physix, 60, 1);
 	return NULL;
 }
 /******/

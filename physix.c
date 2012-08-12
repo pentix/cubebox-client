@@ -23,40 +23,35 @@
 #include "physix.h"
 
 void physix(void){
-	while(1){
-		stack *stackptr;
-		OPEN_STACK(THREAD_PHYSICS);
-			stackptr = stack_head(THREAD_PHYSICS);
+	stack *stackptr;
+	OPEN_STACK(THREAD_PHYSICS);
+		stackptr = stack_head(THREAD_PHYSICS);
 
-			// Process stackptr
-			if(stackptr != NULL){
-				switch(stackptr->id){
-					case 9:
-						printf("Walk forwards\n");
-						break;
-					
-					case 11:
-						printf("Walk backwards\n");
-						break;
-
-					case 3:
-						printf("Walk left\n");
-						break;
-
-					case 1:
-						printf("Walk right\n");
-						break;
-					
-					case 0xFF:
-					default:
+		// Process stackptr
+		if(stackptr != NULL){
+			switch(stackptr->id){
+				case 9:
+					printf("Walk forwards\n");
 					break;
-				}
 				
-				stack_drop(THREAD_PHYSICS);
+				case 11:
+					printf("Walk backwards\n");
+					break;
+
+				case 3:
+					printf("Walk left\n");
+					break;
+
+				case 1:
+					printf("Walk right\n");
+					break;
+				
+				case 0xFF:
+				default:
+				break;
 			}
-		CLOSE_STACK(THREAD_PHYSICS);
-		
-		// sleep 50ms -> avg. 20fps input
-		usleep(50000);
-	}
+			
+			stack_drop(THREAD_PHYSICS);
+		}
+	CLOSE_STACK(THREAD_PHYSICS);
 }
