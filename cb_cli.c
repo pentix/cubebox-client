@@ -31,6 +31,40 @@
  *
  ******/
  
+#ifndef LINUX
+
+int gettimeofday( struct timeval *tv, struct timezone *tz )
+{
+	LARGE_INTEGER tickPerSecond;
+	LARGE_INTEGER tick;
+	time_t rawtime;
+
+	time(&rawtime);
+	tv->tv_sec = (long)rawtime;
+
+	QueryPerformanceFrequency(&tickPerSecond);
+	QueryPerformanceCounter(&tick);
+
+	tv->tv_usec = (tick.QuadPart % tickPerSecond.QuadPart);
+	return 0;
+}
+
+
+int usleep(int time){ //doesn't work
+	HANDLE hTimer = NULL; 
+	LARGE_INTEGER liDueTime; 
+	
+	liDueTime.QuadPart=time*-1; // negativer Wert= relative Zeit, positiv=absoluter Zeit (siehe SetWaitableTimer) 
+
+	hTimer = CreateWaitableTimer(NULL, TRUE, NULL); 
+	SetWaitableTimer(hTimer, &liDueTime, 0, NULL, NULL, 0);
+	WaitForSingleObject(hTimer, INFINITE);
+	return 0;
+} 
+
+#endif
+
+ 
 
 /****f* CB_CLI/Main
  * NAME

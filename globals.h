@@ -37,14 +37,23 @@
 //Default
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/time.h>
+
+#ifdef LINUX
+	#include <unistd.h>
+	#include <sys/time.h>
+#else
+	#include <windows.h>
+	#include <time.h>
+#endif
 
 //gl
 #include <GL/glut.h>
-#include <portaudio.h>
 #include <GL/glu.h>
 #include <GL/gl.h>
+
+#ifdef LINUX
+	#include <portaudio.h> //not tested in windows
+#endif
 
 //pthread
 #include <pthread.h>
