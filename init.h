@@ -23,6 +23,14 @@
 #ifndef __INIT_H__
 #define __INIT_H__
 
+/****h* Client/Init_h
+ * NAME
+ *   Init
+ * FUNCTION
+ *   Thread initialition and glut setup.
+ *
+ ******/
+ 
 #include "globals.h"
 
 extern void init(void);
@@ -30,12 +38,24 @@ extern void halt(void);
 
 extern unsigned long getUsec(void);
 
+/****d* Init/TimedCallback
+ * NAME
+ *   TimedCallback
+ * FUNCTION
+ *   Kind of a timer. Calls the function in a specified interval.
+ *   The function gets at least one time called.
+ * INPUT
+ *   func -- function pointer to the timer function
+ *   CPS -- calls per second
+ *   BrkCond -- break condition
+ * SOURCE
+ */
 #define TimedCallback(func, CPS, BrkCond) \
 	do{ \
 		unsigned long cb_time=getUsec(); \
 		func(); \
 		usleep((int)((1000000.0f/(((float)CPS)))-(getUsec()-cb_time)));\
-		/* printf("Refresh time %lu-%lu=%lu usec\n",getUsec(), cb_time, getUsec()-cb_time); */ \
+		 printf("Refresh time %lu-%lu=%lu usec\n",getUsec(), cb_time, getUsec()-cb_time);  \
 	}while(!BrkCond);
-
 #endif
+/******/
