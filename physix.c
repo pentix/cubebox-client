@@ -20,38 +20,96 @@
 */
 
 
+/****h* Client/Physix
+ * NAME
+ *   Physix
+ * FUNCTION
+ *   Basic physic computations
+ *
+ ******/
+
 #include "physix.h"
 
+/****f* Physix/Physix
+ * NAME
+ *   physix
+ * FUNCTION
+ *   Never ending physical computations. Started in a own thread.
+ * NOTE
+ *   First part reads the pressed keys from the stack. Only the second
+ *   part is responsible for the computations.
+ * SOURCE
+ */
 void physix(void){
 	stack *stackptr;
+	char forwards, left, backwards, right;
+	
 	OPEN_STACK(THREAD_PHYSICS);
 		stackptr = stack_head(THREAD_PHYSICS);
+		
+		while(stackptr->id != 0xFF){			
+			// movement flags
 
-		// Process stackptr
-		if(stackptr != NULL){
-			switch(stackptr->id){
-				case 9:
-					printf("Walk forwards\n");
+			// Process stackptr
+			if(stackptr != NULL){
+				switch(stackptr->id){
+					case 1:
+						right = 1;
 					break;
+					case 2:
+						right = 0;
+					break;
+
+
+					case 3:
+						left = 1;
+					break;
+					case 4:
+						left = 0;
+					break;
+
+
+					case 9:
+						forwards = 1;
+					break;
+					case 10:
+						forwards = 0;
+					break;
+
+						
+					case 11:
+						backwards = 1;
+					break;
+					case 12:
+						backwards = 0;
+					break;
+
+					case 0xFF:
+					
+					default:
+					break;
+				}
 				
-				case 11:
-					printf("Walk backwards\n");
-					break;
-
-				case 3:
-					printf("Walk left\n");
-					break;
-
-				case 1:
-					printf("Walk right\n");
-					break;
-				
-				case 0xFF:
-				default:
-				break;
+				stack_drop(THREAD_PHYSICS);
+				stackptr = stack_head(THREAD_PHYSICS);
 			}
-			
-			stack_drop(THREAD_PHYSICS);
 		}
 	CLOSE_STACK(THREAD_PHYSICS);
+	
+	
+	/* Physical computations start here */
+	
+	if(forwards)
+		printf("Walk forwards\n");		
+	
+	if(backwards)
+		printf("Walk backwards\n");
+	
+	if(left)
+		printf("Walk left\n");
+	
+	if(right)
+		printf("Walk right\n");
+		
 }
+/******/

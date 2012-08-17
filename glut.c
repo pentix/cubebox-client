@@ -81,17 +81,18 @@ void keyboard(unsigned char key, int x, int y){
 	// Convert lowercase letters to uppercase letters
 	if(key > 96 && key < 123)
 		key-=32;
-
+	
+	
 	OPEN_STACK(THREAD_PHYSICS);
-	if(key == 'W'){
-			stack_push(THREAD_PHYSICS, 9, NULL, 0);
-	} else if(key == 'S'){
-			stack_push(THREAD_PHYSICS, 11, NULL, 0);
-	} else if(key == 'A'){
-			stack_push(THREAD_PHYSICS, 3, NULL, 0);
-	} else if(key == 'D'){
-			stack_push(THREAD_PHYSICS, 1, NULL, 0);
-	}
+		if(key == 'W'){
+				stack_push(THREAD_PHYSICS, 9, NULL, 0);
+		} else if(key == 'S'){
+				stack_push(THREAD_PHYSICS, 11, NULL, 0);
+		} else if(key == 'A'){
+				stack_push(THREAD_PHYSICS, 3, NULL, 0);
+		} else if(key == 'D'){
+				stack_push(THREAD_PHYSICS, 1, NULL, 0);
+		} 
 	CLOSE_STACK(THREAD_PHYSICS);
 	
 	// Terminate game with Esc
@@ -124,15 +125,15 @@ void keyboard_up(unsigned char key, int x, int y){
 		key-=32;
 	
 	OPEN_STACK(THREAD_PHYSICS);
-	if(key == 'W'){
-			stack_push(THREAD_PHYSICS, 10, NULL, 0);
-	} else if(key == 'S'){
-			stack_push(THREAD_PHYSICS, 12, NULL, 0);
-	} else if(key == 'A'){
-			stack_push(THREAD_PHYSICS, 4, NULL, 0);
-	} else if(key == 'D'){
-			stack_push(THREAD_PHYSICS, 2, NULL, 0);
-	}
+		if(key == 'W'){
+				stack_push(THREAD_PHYSICS, 10, NULL, 0);
+		} else if(key == 'S'){
+				stack_push(THREAD_PHYSICS, 12, NULL, 0);
+		} else if(key == 'A'){
+				stack_push(THREAD_PHYSICS, 4, NULL, 0);
+		} else if(key == 'D'){
+				stack_push(THREAD_PHYSICS, 2, NULL, 0);
+		}
 	CLOSE_STACK(THREAD_PHYSICS);
 
 }
