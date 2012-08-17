@@ -42,57 +42,57 @@
  */
 void physix(void){
 	stack *stackptr;
-	char forwards, left, backwards, right;
+	char forwards=0, left=0, backwards=0, right=0;
 	
 	OPEN_STACK(THREAD_PHYSICS);
 		stackptr = stack_head(THREAD_PHYSICS);
-		
-		while(stackptr->id != 0xFF){			
-			// movement flags
+	
+		if(stackptr != NULL){	
+			while(stackptr->id != 0xFF){			
+				// movement flags
 
-			// Process stackptr
-			if(stackptr != NULL){
-				switch(stackptr->id){
-					case 1:
-						right = 1;
-					break;
-					case 2:
-						right = 0;
-					break;
-
-
-					case 3:
-						left = 1;
-					break;
-					case 4:
-						left = 0;
-					break;
+				// Process stackptr
+					switch(stackptr->id){
+						case 1:
+							right = 1;
+						break;
+						case 2:
+							right = 0;
+						break;
 
 
-					case 9:
-						forwards = 1;
-					break;
-					case 10:
-						forwards = 0;
-					break;
+						case 3:
+							left = 1;
+						break;
+						case 4:
+							left = 0;
+						break;
 
+
+						case 9:
+							forwards = 1;
+						break;
+						case 10:
+							forwards = 0;
+						break;
+
+							
+						case 11:
+							backwards = 1;
+						break;
+						case 12:
+							backwards = 0;
+						break;
+
+						case 0xFF:
 						
-					case 11:
-						backwards = 1;
-					break;
-					case 12:
-						backwards = 0;
-					break;
-
-					case 0xFF:
+						default:
+						break;
+					}
 					
-					default:
-					break;
+					stack_drop(THREAD_PHYSICS);
+					stackptr = stack_head(THREAD_PHYSICS);
 				}
-				
-				stack_drop(THREAD_PHYSICS);
-				stackptr = stack_head(THREAD_PHYSICS);
-			}
 		}
 	CLOSE_STACK(THREAD_PHYSICS);
 	
