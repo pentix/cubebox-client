@@ -41,8 +41,18 @@
  * SOURCE
  */
 void physix(void){
-	stack *stackptr;
+	// Some values that may be affected of changes in the stack
+	static double x=0;
+	static double y=0;
+	static double z=0;
+	static double xrot=0;
+	static double yrot=0;
 	char forwards=0, left=0, backwards=0, right=0;
+	
+	stack *stackptr;
+	float *floatptr;
+	
+
 	
 	OPEN_STACK(THREAD_PHYSICS);
 		stackptr = stack_head(THREAD_PHYSICS);
@@ -83,9 +93,21 @@ void physix(void){
 						case 12:
 							backwards = 0;
 						break;
-
-						case 0xFF:
 						
+						case 13:
+							floatptr = POP_STACK(THREAD_PHYSICS, float);
+							xrot += *floatptr;
+							free(floatptr);
+						break;
+						case 14:
+							floatptr = POP_STACK(THREAD_PHYSICS, float);
+							yrot += *floatptr;
+							free(floatptr);
+						break;
+						
+
+
+						case 0xFF:						
 						default:
 						break;
 					}
@@ -98,6 +120,8 @@ void physix(void){
 	
 	
 	/* Physical computations start here */
+
+	
 	
 	if(forwards)
 		printf("Walk forwards\n");		
@@ -110,6 +134,7 @@ void physix(void){
 	
 	if(right)
 		printf("Walk right\n");
-		
+	
+	//~ printf("xrot: %.2f° / yrot: %.2f°\n", xrot, yrot);
 }
 /******/

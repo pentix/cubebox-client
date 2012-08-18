@@ -33,6 +33,7 @@ extern void keyboard_up(unsigned char key, int x, int y);
 extern void display();
 extern void mouse();
 
+float mouse_sensitivity;
 
 //~ 
 //~ enum {

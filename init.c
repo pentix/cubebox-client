@@ -175,7 +175,7 @@ void *init_graphic(){
 	glutKeyboardFunc	(keyboard);
 	glutKeyboardUpFunc	(keyboard_up);
 	glutIgnoreKeyRepeat (1);
-	glutSetCursor		(GLUT_CURSOR_FULL_CROSSHAIR);
+	glutSetCursor		(GLUT_CURSOR_NONE);
 	glutIdleFunc		(graphix);
 	glutPassiveMotionFunc(mouse);
 	
