@@ -126,18 +126,17 @@ void graphix(){
 void *init_graphic(){
 	char *argv[]={"cubebox\0",NULL};
 	int argc=1, *intptr, width, height;
-
+	char fullscreen=0;
 	stack *stackptr;
+	char gamemode[256];
 		
 	OPEN_STACK(THREAD_GRAPHICS);
 	
 	while(((stackptr=stack_head(THREAD_GRAPHICS)) != NULL)&&(stack_head(THREAD_GRAPHICS)->id!=0xFF)){
-		printf("STACK0 %p %i\n", stack_head(THREAD_GRAPHICS), stack_head(THREAD_GRAPHICS)->id);
-
 		switch(stackptr->id){
 			case 0:
 				intptr=POP_STACK(THREAD_GRAPHICS, int);
-				if(*(intptr))glutFullScreen();
+				if(*(intptr))fullscreen=1;
 				free(intptr);
 			break;
 			case 1:
@@ -162,7 +161,15 @@ void *init_graphic(){
 	glutInit			(&argc,argv);
 	glutInitDisplayMode	(GLUT_RGBA | GLUT_DOUBLE);
 	glutInitWindowSize	(width, height);
-	glutCreateWindow	("CUBEBOX");
+
+	if(fullscreen){
+		sprintf(gamemode, "%dx%d:24", width, height);
+		glutGameModeString(gamemode);
+		glutEnterGameMode(); 
+	}else{
+		glutCreateWindow("CUBEBOX");
+	}
+	
 	glutDisplayFunc		(display);
 	glutReshapeFunc		(reshape);
 	glutKeyboardFunc	(keyboard);
