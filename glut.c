@@ -154,41 +154,23 @@ void keyboard_up(unsigned char key, int x, int y){
  */
 
 
-char warp_ptr_call=0;
-
 void mouse(int x, int y){
-	if(warp_ptr_call){
-		warp_ptr_call = 0;
-		return;
+	int mouse_center_x = glutGet(GLUT_WINDOW_WIDTH)/2;
+	int mouse_center_y = glutGet(GLUT_WINDOW_HEIGHT)/2;
+	float mouse_pos_x = (float)(x-mouse_center_x)*MOUSE_SENSITIVITY;
+	float mouse_pos_y = (float)(y-mouse_center_y)*MOUSE_SENSITIVITY;
+
+	if(((y-mouse_center_y)|(x-mouse_center_x))!=0){
+		// Send motions to physics thread
+		OPEN_STACK(THREAD_PHYSICS);
+			stack_push(THREAD_PHYSICS, 13, (void *)&mouse_pos_x, sizeof(float));
+			stack_push(THREAD_PHYSICS, 14, (void *)&mouse_pos_y, sizeof(float));		
+		CLOSE_STACK(THREAD_PHYSICS);
+	
+		// Reset pointer to the center of the window
+		glutWarpPointer(mouse_center_x, mouse_center_y);
 	}
-	
-	static int mouse_pos_x = 0;
-	static int mouse_pos_y = 0;
-	static float xrot=0, yrot=0;
-	
-	mouse_sensitivity = 10.0f;
-	
-	xrot = (mouse_pos_x-x)*mouse_sensitivity;
-	yrot = (mouse_pos_y-y)*mouse_sensitivity;
-	
-	float *motion_x, *motion_y;
-	falloc(motion_x, sizeof(float)); // free() after use!
-	*motion_x = (mouse_pos_x-x)*mouse_sensitivity;
-	falloc(motion_y, sizeof(float));
-	*motion_y = (mouse_pos_y-y)*mouse_sensitivity;
-	
-	// Send motions to physics thread
-	OPEN_STACK(THREAD_PHYSICS);
-		stack_push(THREAD_PHYSICS, 13, (void *)motion_x, sizeof(float));
-		stack_push(THREAD_PHYSICS, 14, (void *)motion_y, sizeof(float));		
-	CLOSE_STACK(THREAD_PHYSICS);
-	
-	mouse_pos_x = x;
-	mouse_pos_y = y;
-	
-	// Reset pointer to the center of the window
-	warp_ptr_call = 1;
-	glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)/2, glutGet(GLUT_WINDOW_HEIGHT)/2);
+	return 0;
 }
 /******/
 

@@ -47,7 +47,7 @@ void physix(void){
 	static double z=0;
 	static double xrot=0;
 	static double yrot=0;
-	char forwards=0, left=0, backwards=0, right=0;
+	static char forwards=0, left=0, backwards=0, right=0;
 	
 	stack *stackptr;
 	float *floatptr;
@@ -65,33 +65,41 @@ void physix(void){
 					switch(stackptr->id){
 						case 1:
 							right = 1;
+							stack_drop(THREAD_PHYSICS);
 						break;
 						case 2:
 							right = 0;
+							stack_drop(THREAD_PHYSICS);
 						break;
 
 
 						case 3:
 							left = 1;
+							stack_drop(THREAD_PHYSICS);
 						break;
 						case 4:
 							left = 0;
+							stack_drop(THREAD_PHYSICS);
 						break;
 
 
 						case 9:
 							forwards = 1;
+							stack_drop(THREAD_PHYSICS);
 						break;
 						case 10:
 							forwards = 0;
+							stack_drop(THREAD_PHYSICS);
 						break;
 
 							
 						case 11:
 							backwards = 1;
+							stack_drop(THREAD_PHYSICS);
 						break;
 						case 12:
 							backwards = 0;
+							stack_drop(THREAD_PHYSICS);
 						break;
 						
 						case 13:
@@ -104,15 +112,12 @@ void physix(void){
 							yrot += *floatptr;
 							free(floatptr);
 						break;
-						
-
 
 						case 0xFF:						
 						default:
+							stack_drop(THREAD_PHYSICS);
 						break;
 					}
-					
-					stack_drop(THREAD_PHYSICS);
 					stackptr = stack_head(THREAD_PHYSICS);
 				}
 		}
@@ -124,7 +129,7 @@ void physix(void){
 	
 	
 	if(forwards)
-		printf("Walk forwards\n");		
+		printf("Walk forwards\n");
 	
 	if(backwards)
 		printf("Walk backwards\n");
@@ -135,6 +140,6 @@ void physix(void){
 	if(right)
 		printf("Walk right\n");
 	
-	//~ printf("xrot: %.2f° / yrot: %.2f°\n", xrot, yrot);
+	printf("X: %f, Y:% f\n",xrot,yrot);
 }
 /******/
