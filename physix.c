@@ -140,6 +140,5 @@ void physix(void){
 	if(right)
 		printf("Walk right\n");
 	
-	printf("X: %f, Y:% f\n",xrot,yrot);
 }
 /******/

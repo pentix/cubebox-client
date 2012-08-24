@@ -61,6 +61,8 @@
 
 //Parser
 #include "../shared/libs/parser/parser.h"
+//BMP Loader
+#include "../shared/libs/bmp/bmp.h"
 
 /****d* Client/Falloc
  * NAME

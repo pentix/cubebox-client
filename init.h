@@ -55,7 +55,7 @@ extern unsigned long getUsec(void);
 		unsigned long cb_time=getUsec(); \
 		func(); \
 		usleep((int)((1000000.0f/(((float)CPS)))-(getUsec()-cb_time)));\
-		/*printf("Refresh time %lu-%lu=%lu usec\n",getUsec(), cb_time, getUsec()-cb_time); */ \
+		/* printf("Refresh time %lu-%lu=%lu usec\n",getUsec(), cb_time, getUsec()-cb_time); */ \
 	}while(!BrkCond);
 #endif
 /******/

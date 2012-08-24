@@ -129,6 +129,9 @@ void *init_graphic(){
 	char fullscreen=0;
 	stack *stackptr;
 	char gamemode[256];
+	BitMap *image;
+    char alpha_col[3];
+    
 		
 	OPEN_STACK(THREAD_GRAPHICS);
 	
@@ -179,8 +182,6 @@ void *init_graphic(){
 	glutIdleFunc		(graphix);
 	glutPassiveMotionFunc(mouse);
 	
-	//~ loadTextures();
-	
 	glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	glClearDepth(1.0f);
@@ -189,7 +190,23 @@ void *init_graphic(){
 	glEnable ( GL_COLOR_MATERIAL );
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
-	glutMainLoop		();
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	alpha_col[0]=0xFF;
+	alpha_col[1]=0xFF;
+	alpha_col[2]=0xFF;
+
+	image=LoadBmp("./media/images/textures/texturemap.bmp", BMP_ENABLE_ALPHA|BMP_ENABLE_ALPHA_COL, 0x00, alpha_col);
+    
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, image->height, image->width, 0, GL_BGRA, GL_UNSIGNED_BYTE, image->data);
+
+	FreeBmp(image);
+	
+	glutMainLoop();
 	
 	return NULL;
 }
